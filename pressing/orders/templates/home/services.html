@@ -2,117 +2,185 @@
 
 {% load static %}
 
-{% block title %}Our Services | Pressing Wash Dress Service{% endblock %}
+{% block title %}Premium Pressing & Wash Services | Elegance Laundry{% endblock %}
 
 {% block content %}
 <!-- Hero Section -->
-<header class="hero bg-cover bg-center text-white text-center py-32" style="background-image: url('{% static 'image/services_hero.jpg' %}');">
-    <h1 class="text-5xl font-bold">Our Services</h1>
-    <p class="mt-4 text-lg">Discover our wide range of services designed to meet all your pressing and washing needs.</p>
+<header class="hero bg-cover bg-center text-white text-center py-40" style="background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('{% static 'image/new.jpeg' %}');">
+    <div class="container mx-auto px-4">
+        <h1 class="text-6xl font-bold mb-4">Elevate Your Wardrobe</h1>
+        <p class="text-xl mb-8">Experience premium pressing and washing services tailored to your needs</p>
+        <a href="#services" class="bg-white text-blue-600 font-bold py-3 px-8 rounded-full hover:bg-blue-100 transition duration-300">Explore Our Services</a>
+    </div>
 </header>
 
 <!-- Service Offerings Section -->
-<div class="container mx-auto mt-10">
-    <h2 class="text-4xl font-bold text-center mb-8">Our Service Offerings</h2>
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-        <!-- Service Card 1 -->
-        <div class="service-card rounded-lg shadow-lg overflow-hidden transition-transform transform hover:scale-105">
-            <img src="{% static 'image/pressing_service.jpeg' %}" alt="Pressing Service" class="w-full h-48 object-cover">
-            <div class="p-6">
-                <h5 class="text-2xl font-semibold">Dress Pressing</h5>
-                <p class="mt-2">Expert pressing to keep your dresses looking sharp and wrinkle-free for any occasion, ensuring you make a great impression.</p>
-                <a href="#" class="mt-4 inline-block bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700">Learn More</a>
+<section id="services" class="py-20 bg-gray-100">
+    <div class="container mx-auto px-4">
+        <h2 class="text-4xl font-bold text-center mb-12">Our Premium Services</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+            <!-- Service Card 1 -->
+            <div class="bg-white rounded-lg shadow-lg overflow-hidden transition-all duration-300 hover:shadow-2xl">
+                <img src="{% static 'image/pressing_service.jpeg' %}" alt="Dress Pressing" class="w-full h-64 object-cover">
+                <div class="p-6">
+                    <h3 class="text-2xl font-semibold mb-3">Expert Dress Pressing</h3>
+                    <p class="text-gray-600 mb-4">Our skilled professionals use state-of-the-art equipment to ensure your dresses look impeccable for any occasion. From delicate fabrics to structured garments, we handle each piece with utmost care.</p>
+                    <ul class="text-sm text-gray-600 mb-4">
+                        <li class="mb-2">✓ Steam pressing for stubborn wrinkles</li>
+                        <li class="mb-2">✓ Fabric-specific techniques</li>
+                        <li>✓ Starch options available</li>
+                    </ul>
+                    <a href="#" class="inline-block bg-blue-600 text-white px-6 py-3 rounded-full hover:bg-blue-700 transition duration-300">Learn More</a>
+                </div>
             </div>
-        </div>
-        <!-- Service Card 2 -->
-        <div class="service-card rounded-lg shadow-lg overflow-hidden transition-transform transform hover:scale-105">
-            <img src="{% static 'image/washing_service.jpeg' %}" alt="Washing Service" class="w-full h-48 object-cover">
-            <div class="p-6">
-                <h5 class="text-2xl font-semibold">Wash & Care</h5>
-                <p class="mt-2">Gentle washing methods using eco-friendly products to preserve the quality and longevity of your garments.</p>
-                <a href="#" class="mt-4 inline-block bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700">Learn More</a>
+            <!-- Service Card 2 -->
+            <div class="bg-white rounded-lg shadow-lg overflow-hidden transition-all duration-300 hover:shadow-2xl">
+                <img src="{% static 'image/washing_service.jpeg' %}" alt="Eco-Friendly Wash & Care" class="w-full h-64 object-cover">
+                <div class="p-6">
+                    <h3 class="text-2xl font-semibold mb-3">Eco-Friendly Wash & Care</h3>
+                    <p class="text-gray-600 mb-4">Our advanced washing methods use biodegradable detergents and energy-efficient machines to clean your clothes thoroughly while minimizing environmental impact.</p>
+                    <ul class="text-sm text-gray-600 mb-4">
+                        <li class="mb-2">✓ Cold water wash options</li>
+                        <li class="mb-2">✓ Gentle cycle for delicates</li>
+                        <li>✓ Eco-friendly stain removal</li>
+                    </ul>
+                    <a href="#" class="inline-block bg-green-600 text-white px-6 py-3 rounded-full hover:bg-green-700 transition duration-300">Discover More</a>
+                </div>
             </div>
-        </div>
-        <!-- Service Card 3 -->
-        <div class="service-card rounded-lg shadow-lg overflow-hidden transition-transform transform hover:scale-105">
-            <img src="{% static 'image/pickup_service.jpeg' %}" alt="Pickup Service" class="w-full h-48 object-cover">
-            <div class="p-6">
-                <h5 class="text-2xl font-semibold">Pickup & Delivery</h5>
-                <p class="mt-2">Convenient pickup and delivery service right at your doorstep, making laundry day hassle-free.</p>
-                <a href="#" class="mt-4 inline-block bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700">Learn More</a>
+            <!-- Service Card 3 -->
+            <div class="bg-white rounded-lg shadow-lg overflow-hidden transition-all duration-300 hover:shadow-2xl">
+                <img src="{% static 'image/pickup_service.jpeg' %}" alt="VIP Pickup & Delivery" class="w-full h-64 object-cover">
+                <div class="p-6">
+                    <h3 class="text-2xl font-semibold mb-3">VIP Pickup & Delivery</h3>
+                    <p class="text-gray-600 mb-4">Experience the ultimate convenience with our door-to-door service. Our trained staff ensures your garments are handled with care from pickup to delivery.</p>
+                    <ul class="text-sm text-gray-600 mb-4">
+                        <li class="mb-2">✓ Flexible scheduling</li>
+                        <li class="mb-2">✓ Real-time tracking</li>
+                        <li>✓ Contactless delivery options</li>
+                    </ul>
+                    <a href="#" class="inline-block bg-purple-600 text-white px-6 py-3 rounded-full hover:bg-purple-700 transition duration-300">Schedule Now</a>
+                </div>
             </div>
         </div>
     </div>
-</div>
+</section>
+
+<!-- Why Choose Us Section -->
+<section class="py-20 bg-blue-600 text-white">
+    <div class="container mx-auto px-4">
+        <h2 class="text-4xl font-bold text-center mb-12">Why Choose Elegance Laundry?</h2>
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+            <div class="text-center">
+                <i class="fas fa-medal text-5xl mb-4"></i>
+                <h3 class="text-xl font-semibold mb-2">Premium Quality</h3>
+                <p>Unmatched attention to detail in every service we provide.</p>
+            </div>
+            <div class="text-center">
+                <i class="fas fa-leaf text-5xl mb-4"></i>
+                <h3 class="text-xl font-semibold mb-2">Eco-Friendly</h3>
+                <p>Sustainable practices to protect your clothes and the environment.</p>
+            </div>
+            <div class="text-center">
+                <i class="fas fa-clock text-5xl mb-4"></i>
+                <h3 class="text-xl font-semibold mb-2">Time-Saving</h3>
+                <p>Quick turnaround times without compromising on quality.</p>
+            </div>
+            <div class="text-center">
+                <i class="fas fa-smile text-5xl mb-4"></i>
+                <h3 class="text-xl font-semibold mb-2">Customer Satisfaction</h3>
+                <p>Dedicated to exceeding your expectations with every visit.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Testimonials Section -->
+<section class="py-20 bg-gray-100">
+    <div class="container mx-auto px-4">
+        <h2 class="text-4xl font-bold text-center mb-12">What Our Clients Say</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="bg-white p-6 rounded-lg shadow-md">
+                <p class="text-gray-600 mb-4">"Elegance Laundry has transformed my wardrobe care routine. Their attention to detail is unparalleled!"</p>
+                <p class="font-semibold">- Sarah J.</p>
+            </div>
+            <div class="bg-white p-6 rounded-lg shadow-md">
+                <p class="text-gray-600 mb-4">"The convenience of their pickup and delivery service has made my life so much easier. Highly recommended!"</p>
+                <p class="font-semibold">- Michael R.</p>
+            </div>
+            <div class="bg-white p-6 rounded-lg shadow-md">
+                <p class="text-gray-600 mb-4">"I appreciate their eco-friendly approach. It's great to know my clothes are being cared for responsibly."</p>
+                <p class="font-semibold">- Emily T.</p>
+            </div>
+        </div>
+    </div>
+</section>
 
 <!-- Find Services Nearby Section -->
-<div class="container mx-auto mt-10">
-    <h2 class="text-4xl font-bold text-center mb-8">Find Pressing Services Nearby</h2>
-    <div class="map-container h-96 w-full bg-gray-200" id="map"></div>
-</div>
-
-<!-- Delivery Services Section -->
-<div class="container mx-auto mt-10">
-    <h2 class="text-4xl font-bold text-center mb-8">Our Delivery Services</h2>
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-        <div class="delivery-card rounded-lg shadow-lg p-6 bg-white">
-            <h5 class="text-2xl font-semibold">Delivery Service 1</h5>
-            <p class="mt-2">Responsible for picking up clothes from the client’s house, taking them to the pressing service, and delivering them back.</p>
-            <a href="#" class="mt-4 inline-block bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700">Learn More</a>
-        </div>
-        <div class="delivery-card rounded-lg shadow-lg p-6 bg-white">
-            <h5 class="text-2xl font-semibold">Delivery Service 2</h5>
-            <p class="mt-2">Reliable delivery service with punctual pickup and drop-off options for all your pressing needs.</p>
-            <a href="#" class="mt-4 inline-block bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700">Learn More</a>
-        </div>
-        <div class="delivery-card rounded-lg shadow-lg p-6 bg-white">
-            <h5 class="text-2xl font-semibold">Delivery Service 3</h5>
-            <p class="mt-2">Efficient delivery service ensuring timely transportation of garments to and from pressing services.</p>
-            <a href="#" class="mt-4 inline-block bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700">Learn More</a>
-        </div>
+<section class="py-20">
+    <div class="container mx-auto px-4">
+        <h2 class="text-4xl font-bold text-center mb-12">Find Elegance Laundry Near You</h2>
+        <div id="map" class="h-96 w-full rounded-lg shadow-lg"></div>
     </div>
-</div>
+</section>
+
+<!-- Call to Action -->
+<section class="py-20 bg-gray-800 text-white text-center">
+    <div class="container mx-auto px-4">
+        <h2 class="text-4xl font-bold mb-4">Ready to Experience Premium Laundry Care?</h2>
+        <p class="text-xl mb-8">Join thousands of satisfied customers and elevate your wardrobe today!</p>
+        <a href="#" class="bg-white text-blue-600 font-bold py-3 px-8 rounded-full hover:bg-blue-100 transition duration-300">Get Started</a>
+    </div>
+</section>
 
 {% endblock %}
 
 {% block extra_css %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 <style>
-    /* Additional CSS for map styling if needed */
-    .map-container {
-        height: 400px;
-        width: 100%;
-        background-color: #ddd;
+    /* Custom styles */
+    .hero {
+        position: relative;
+    }
+    .hero::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.5);
+    }
+    .hero > * {
+        position: relative;
+        z-index: 1;
     }
 </style>
 {% endblock %}
 
 {% block extra_js %}
-<script src="{% static 'js/services.js' %}"></script>
-<!-- Google Maps API -->
 <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places&callback=initMap" async defer></script>
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        // Initialize map
-        window.initMap = function() {
-            const map = new google.maps.Map(document.getElementById('map'), {
-                zoom: 12,
-                center: { lat: -34.397, lng: 150.644 } // Default location
+    function initMap() {
+        const map = new google.maps.Map(document.getElementById('map'), {
+            zoom: 12,
+            center: { lat: -34.397, lng: 150.644 }
+        });
+        
+        const locations = [
+            { lat: -34.397, lng: 150.644, name: "Elegance Laundry - Downtown" },
+            { lat: -34.407, lng: 150.654, name: "Elegance Laundry - Uptown" },
+            { lat: -34.387, lng: 150.634, name: "Elegance Laundry - Riverside" }
+        ];
+        
+        locations.forEach(location => {
+            new google.maps.Marker({
+                position: { lat: location.lat, lng: location.lng },
+                map: map,
+                title: location.name
             });
-            
-            // Add markers for pressing services
-            const services = [
-                { lat: -34.397, lng: 150.644, name: "Pressing Service 1" },
-                { lat: -34.407, lng: 150.654, name: "Pressing Service 2" }
-            ];
-            
-            services.forEach(service => {
-                new google.maps.Marker({
-                    position: { lat: service.lat, lng: service.lng },
-                    map: map,
-                    title: service.name
-                });
-            });
-        }
-    });
+        });
+    }
+
+    document.addEventListener('DOMContentLoaded', initMap);
 </script>
 {% endblock %}

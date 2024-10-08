@@ -24,28 +24,50 @@
         <!-- Contact Info -->
         <div class="contact-info bg-white p-8 shadow-lg rounded-lg fade-in">
             <h2 class="text-3xl font-semibold mb-6">Contact Information</h2>
-            <p class="text-lg mb-4"><strong>Email:</strong> contact@pressingwash.com</p>
-            <p class="text-lg mb-4"><strong>Phone:</strong> 237 09876282972</p>
-            <p class="text-lg"><strong>Address:</strong> 123 Pressing St, Yaoundé, Cameroon</p>
+            <p class="text-lg mb-4"><strong>Email:</strong> <a href="mailto:contact@pressingwash.com" class="text-blue-500 underline">contact@pressingwash.com</a></p>
+            <p class="text-lg mb-4"><strong>Phone:</strong> <a href="tel:+23709876282972" class="text-blue-500 underline">237 09876282972</a></p>
+            <p class="text-lg mb-4"><strong>Address:</strong> 123 Pressing St, Yaoundé, Cameroon</p>
+            <h3 class="text-2xl font-semibold mt-6">Follow Us</h3>
+            <div class="flex space-x-4 mt-2">
+                <a href="#" class="text-blue-500"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" class="text-blue-500"><i class="fab fa-twitter"></i></a>
+                <a href="#" class="text-blue-500"><i class="fab fa-instagram"></i></a>
+            </div>
         </div>
     </div>
-</div>
 
+    <div class="mt-16 bg-gray-100 p-8 rounded-lg shadow-lg fade-in">
+        <h2 class="text-3xl font-semibold mb-6">Why Choose Us?</h2>
+        <p class="text-lg mb-4">At Pressing Wash, we prioritize your satisfaction. Our team is dedicated to providing top-notch service. Here’s why you should choose us:</p>
+        <ul class="list-disc pl-5 text-lg">
+            <li>✅ Professional and experienced staff.</li>
+            <li>✅ Eco-friendly cleaning products.</li>
+            <li>✅ Fast and reliable service.</li>
+            <li>✅ Competitive pricing.</li>
+            <li>✅ Customer satisfaction guaranteed.</li>
+        </ul>
+    </div>
+</div>
 {% endblock %}
 
 {% block extra_css %}
-<link href="{% static 'css/contact.css' %}" rel="stylesheet">
 <style>
     .hero {
-        background: url('{% static "image/images.jpeg" %}') no-repeat center center;
+        background: url('{% static "image/wash.jpeg" %}') no-repeat center center;
         background-size: cover;
         color: rgba(255, 255, 255, 0.9);
+    }
+    .fade-in {
+        animation: fadeIn 1s ease-in-out;
+    }
+    @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
     }
 </style>
 {% endblock %}
 
 {% block extra_js %}
-<script src="{% static 'js/contact.js' %}"></script>
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         const formElements = document.querySelectorAll('.contact-form input, .contact-form textarea');

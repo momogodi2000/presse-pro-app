@@ -2,69 +2,126 @@
 
 {% load static %}
 
-{% block title %}About Us | Pressing Wash Dress Service{% endblock %}
+{% block title %}About Us | Pressing Wash Dress Service - Your Premier Garment Care Experts{% endblock %}
 
 {% block content %}
 <!-- Hero Section -->
-<header class="hero bg-cover bg-center text-white text-center py-32" style="background-image: url('{% static 'image/about_hero.jpg' %}');">
-    <h1 class="text-5xl font-bold">About Us</h1>
-    <p class="mt-4 text-lg">Learn more about our mission, team, and the services we offer.</p>
+<header class="hero bg-cover bg-center text-white text-center py-40" style="background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('{% static 'image/wash.jpeg' %}');">
+    <div class="container mx-auto px-4">
+        <h1 class="text-6xl font-bold mb-4">About Pressing Wash</h1>
+        <p class="mt-4 text-xl max-w-2xl mx-auto">Discover the story behind New York's most trusted garment care service. We blend tradition with innovation to keep your wardrobe impeccable.</p>
+        <a href="#contact" class="mt-8 inline-block bg-white text-blue-600 font-bold py-3 px-6 rounded-full hover:bg-blue-100 transition duration-300">Contact Us</a>
+    </div>
 </header>
 
 <!-- Our Mission Section -->
-<div class="container mx-auto py-16">
-    <h2 class="text-4xl font-bold text-center mb-4">Our Mission</h2>
-    <p class="text-center text-lg">At Pressing Wash, our mission is to provide exceptional dress care services with convenience and efficiency. We are dedicated to ensuring the highest quality of pressing and washing, delivering impeccable results every time.</p>
-</div>
+<section class="bg-gray-100 py-20">
+    <div class="container mx-auto px-4">
+        <h2 class="text-4xl font-bold text-center mb-8">Our Mission</h2>
+        <div class="flex flex-col md:flex-row items-center justify-between">
+            <div class="md:w-1/2 mb-8 md:mb-0">
+                <p class="text-lg leading-relaxed">At Pressing Wash, we're on a mission to revolutionize garment care. We believe that looking your best shouldn't come at the cost of convenience or quality. Our commitment goes beyond just cleaning clothes; we're dedicated to preserving the integrity and longevity of your cherished garments while providing a service that fits seamlessly into your busy lifestyle.</p>
+                <ul class="mt-6 space-y-2">
+                    <li class="flex items-center"><svg class="w-6 h-6 mr-2 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Eco-friendly cleaning processes</li>
+                    <li class="flex items-center"><svg class="w-6 h-6 mr-2 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Cutting-edge technology for precision care</li>
+                    <li class="flex items-center"><svg class="w-6 h-6 mr-2 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Personalized service for every client</li>
+                </ul>
+            </div>
+            <div class="md:w-1/2">
+                <img src="{% static 'image/1.jpeg' %}" alt="Our Mission" class="rounded-lg shadow-xl">
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Our Services Section -->
+<section class="py-20">
+    <div class="container mx-auto px-4">
+        <h2 class="text-4xl font-bold text-center mb-12">Our Services</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+                <img src="{% static 'image/pressing_service.jpeg' %}" alt="Dress Pressing" class="w-full h-48 object-cover">
+                <div class="p-6">
+                    <h3 class="text-xl font-semibold mb-2">Expert Dress Pressing</h3>
+                    <p class="text-gray-600">Our skilled technicians use state-of-the-art equipment to ensure your dresses look crisp and wrinkle-free.</p>
+                </div>
+            </div>
+            <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+                <img src="{% static 'image/washing_service.jpeg' %}" alt="Delicate Washing" class="w-full h-48 object-cover">
+                <div class="p-6">
+                    <h3 class="text-xl font-semibold mb-2">Delicate Fabric Washing</h3>
+                    <p class="text-gray-600">We specialize in handling delicate fabrics, ensuring your finest garments receive the care they deserve.</p>
+                </div>
+            </div>
+            <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+                <img src="{% static 'image/pickup_service.jpeg' %}" alt="Pickup & Delivery" class="w-full h-48 object-cover">
+                <div class="p-6">
+                    <h3 class="text-xl font-semibold mb-2">Convenient Pickup & Delivery</h3>
+                    <p class="text-gray-600">Enjoy our hassle-free service with scheduled pickups and deliveries right to your doorstep.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 
 <!-- Meet Our Team Section -->
-<div class="container mx-auto py-16">
-    <h2 class="text-4xl font-bold text-center mb-4">Meet Our Team</h2>
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-        <div class="team-member text-center">
-            <img src="{% static 'image/washing_service.jpeg' %}" alt="Team Member 1" class="w-32 h-32 rounded-full mx-auto mb-4 shadow-lg">
-            <h5 class="text-xl font-semibold">John Doe</h5>
-            <p class="text-gray-600">Founder & CEO</p>
-        </div>
-        <div class="team-member text-center">
-            <img src="{% static 'image/washing_service.jpeg' %}" alt="Team Member 2" class="w-32 h-32 rounded-full mx-auto mb-4 shadow-lg">
-            <h5 class="text-xl font-semibold">Jane Smith</h5>
-            <p class="text-gray-600">Chief Operating Officer</p>
-        </div>
-        <div class="team-member text-center">
-            <img src="{% static 'image/washing_service.jpeg' %}" alt="Team Member 3" class="w-32 h-32 rounded-full mx-auto mb-4 shadow-lg">
-            <h5 class="text-xl font-semibold">Mike Johnson</h5>
-            <p class="text-gray-600">Head of Customer Service</p>
+<section class="bg-blue-50 py-20">
+    <div class="container mx-auto px-4">
+        <h2 class="text-4xl font-bold text-center mb-12">Meet Our Expert Team</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="team-member text-center">
+                <img src="{% static 'image/1.jpeg' %}" alt="John Doe" class="w-40 h-40 rounded-full mx-auto mb-4 shadow-lg">
+                <h3 class="text-2xl font-semibold">John Doe</h3>
+                <p class="text-blue-600 mb-2">Founder & CEO</p>
+                <p class="text-gray-600">With over 20 years in the industry, John's vision drives our commitment to excellence.</p>
+            </div>
+            <div class="team-member text-center">
+                <img src="{% static 'image/2.jpeg' %}" alt="Jane Smith" class="w-40 h-40 rounded-full mx-auto mb-4 shadow-lg">
+                <h3 class="text-2xl font-semibold">Jane Smith</h3>
+                <p class="text-blue-600 mb-2">Chief Operating Officer</p>
+                <p class="text-gray-600">Jane ensures our operations run smoothly, focusing on efficiency and customer satisfaction.</p>
+            </div>
+            <div class="team-member text-center">
+                <img src="{% static 'image/for.jpeg' %}" alt="Mike Johnson" class="w-40 h-40 rounded-full mx-auto mb-4 shadow-lg">
+                <h3 class="text-2xl font-semibold">Mike Johnson</h3>
+                <p class="text-blue-600 mb-2">Head of Customer Service</p>
+                <p class="text-gray-600">Mike leads our dedicated team in providing unparalleled customer experiences.</p>
+            </div>
         </div>
     </div>
-</div>
+</section>
 
-<!-- Our Portfolio Section -->
-<div class="container mx-auto py-16">
-    <h2 class="text-4xl font-bold text-center mb-4">Our Portfolio</h2>
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-        <div class="portfolio-item">
-            <img src="{% static 'image/pickup_service.jpeg' %}" alt="Portfolio Item 1" class="w-full h-48 object-cover rounded-lg shadow-lg mb-2">
-            <h5 class="text-center text-lg font-semibold">Dress Pressing Excellence</h5>
-        </div>
-        <div class="portfolio-item">
-            <img src="{% static 'image/pickup_service.jpeg' %}" alt="Portfolio Item 2" class="w-full h-48 object-cover rounded-lg shadow-lg mb-2">
-            <h5 class="text-center text-lg font-semibold">High-Quality Wash Services</h5>
-        </div>
-        <div class="portfolio-item">
-            <img src="{% static 'image/pickup_service.jpeg' %}" alt="Portfolio Item 3" class="w-full h-48 object-cover rounded-lg shadow-lg mb-2">
-            <h5 class="text-center text-lg font-semibold">Efficient Pickup & Delivery</h5>
+<!-- Testimonials Section -->
+<section class="py-20">
+    <div class="container mx-auto px-4">
+        <h2 class="text-4xl font-bold text-center mb-12">What Our Clients Say</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div class="bg-white p-6 rounded-lg shadow-lg">
+                <p class="text-gray-600 mb-4">"Pressing Wash has been a game-changer for my wardrobe. Their attention to detail is unmatched, and the convenience of their pickup service is invaluable."</p>
+                <p class="font-semibold">- Sarah T., Fashion Designer</p>
+            </div>
+            <div class="bg-white p-6 rounded-lg shadow-lg">
+                <p class="text-gray-600 mb-4">"I've tried many dry cleaners, but none compare to the quality and care I receive from Pressing Wash. They truly understand the value of each garment."</p>
+                <p class="font-semibold">- Mark R., Business Executive</p>
+            </div>
         </div>
     </div>
-</div>
+</section>
+
+
 {% endblock %}
 
 {% block extra_css %}
 <style>
     .hero {
         background-size: cover;
-        color: #fff;
-        text-align: center;
+        background-position: center;
+    }
+    .team-member img {
+        transition: transform 0.3s ease;
+    }
+    .team-member:hover img {
+        transform: scale(1.05);
     }
 </style>
 {% endblock %}
@@ -72,7 +129,28 @@
 {% block extra_js %}
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-        // You can add custom scripts here if necessary
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Add animation to team member images on scroll
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate-fadeIn');
+                }
+            });
+        }, { threshold: 0.5 });
+
+        document.querySelectorAll('.team-member img').forEach(img => {
+            observer.observe(img);
+        });
     });
 </script>
 {% endblock %}
