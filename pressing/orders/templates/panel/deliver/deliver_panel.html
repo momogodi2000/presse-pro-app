@@ -1,147 +1,109 @@
-{% extends 'panel/base/base_deliver.html' %}
+{% extends "panel/base/base_deliver.html" %}
 {% load static %}
 
-{% block title %}Deliver Panel - Dashboard{% endblock %}
+{% block title %}
+    Deliver Panel - Dashboard
+{% endblock %}
 
 {% block content %}
-<div class="container">
-    <!-- Page Title -->
-    <section class="mt-5">
-        <h1 class="text-center">Welcome to the Deliver Panel</h1>
-        <p class="text-center text-muted">Manage your deliveries, track geolocation, and promote pressing services.</p>
+    <!-- Header -->
+    <header class="mb-12">
+        <h1 class="text-4xl font-bold text-center text-blue-600">Welcome to the Deliver Panel</h1>
+        <p class="text-center text-gray-600 mt-2">Streamline your deliveries, track locations, and boost your services</p>
+    </header>
+
+    <!-- Dashboard Summary -->
+    <section class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+        <div class="bg-white rounded-lg shadow-md p-6 transition duration-300 ease-in-out transform hover:scale-105">
+            <h3 class="text-xl font-semibold mb-2 text-blue-600">Total Deliveries</h3>
+            <p class="text-3xl font-bold">1,234</p>
+            <p class="text-sm text-gray-500">+15% from last month</p>
+        </div>
+        <div class="bg-white rounded-lg shadow-md p-6 transition duration-300 ease-in-out transform hover:scale-105">
+            <h3 class="text-xl font-semibold mb-2 text-green-600">On-Time Rate</h3>
+            <p class="text-3xl font-bold">98.5%</p>
+            <p class="text-sm text-gray-500">+2% from last month</p>
+        </div>
+        <div class="bg-white rounded-lg shadow-md p-6 transition duration-300 ease-in-out transform hover:scale-105">
+            <h3 class="text-xl font-semibold mb-2 text-purple-600">Customer Satisfaction</h3>
+            <p class="text-3xl font-bold">4.9/5</p>
+            <p class="text-sm text-gray-500">Based on 500+ reviews</p>
+        </div>
     </section>
 
     <!-- Delivery Status Tracker -->
-    <section class="delivery-status mt-5">
-        <h2>Delivery Status Tracker</h2>
-        <div class="row">
-            <div class="col-md-4 mb-3">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">Pending Deliveries</h5>
-                        <p class="card-text">Manage and update delivery statuses.</p>
-                        <button class="btn btn-warning">View Pending</button>
-                    </div>
-                </div>
+    <section class="mb-12">
+        <h2 class="text-2xl font-bold mb-6 text-gray-800">Delivery Status Tracker</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="bg-yellow-100 rounded-lg shadow-md p-6">
+                <h3 class="text-xl font-semibold mb-2 text-yellow-700">Pending Deliveries</h3>
+                <p class="text-3xl font-bold mb-4">42</p>
+                <button class="bg-yellow-500 text-white px-4 py-2 rounded hover:bg-yellow-600 transition duration-300">Manage Pending</button>
             </div>
-            <div class="col-md-4 mb-3">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">In-Transit Deliveries</h5>
-                        <p class="card-text">Track deliveries currently in progress.</p>
-                        <button class="btn btn-info">Track In-Transit</button>
-                    </div>
-                </div>
+            <div class="bg-blue-100 rounded-lg shadow-md p-6">
+                <h3 class="text-xl font-semibold mb-2 text-blue-700">In-Transit Deliveries</h3>
+                <p class="text-3xl font-bold mb-4">78</p>
+                <button class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition duration-300">Track In-Transit</button>
             </div>
-            <div class="col-md-4 mb-3">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">Completed Deliveries</h5>
-                        <p class="card-text">View completed and delivered orders.</p>
-                        <button class="btn btn-success">View Completed</button>
-                    </div>
-                </div>
+            <div class="bg-green-100 rounded-lg shadow-md p-6">
+                <h3 class="text-xl font-semibold mb-2 text-green-700">Completed Deliveries</h3>
+                <p class="text-3xl font-bold mb-4">1,114</p>
+                <button class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition duration-300">View Completed</button>
             </div>
         </div>
     </section>
 
     <!-- Geolocation Section -->
-    <section class="geolocation mt-5">
-        <h2>Geolocation</h2>
-        <button class="btn btn-primary" id="get-location">Get My Location</button>
-        <p id="location-output" class="mt-3"></p>
-        <div id="map" class="map-container mt-3" style="height: 400px;"></div>
+    <section class="mb-12">
+        <h2 class="text-2xl font-bold mb-6 text-gray-800">Real-Time Geolocation Tracking</h2>
+        <div class="bg-white rounded-lg shadow-md p-6">
+            <button id="get-location" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition duration-300 mb-4">
+                <i class="fas fa-map-marker-alt mr-2"></i>Get My Location
+            </button>
+            <p id="location-output" class="text-gray-700 mb-4"></p>
+            <div id="map" class="h-96 w-full rounded-lg shadow-md"></div>
+        </div>
     </section>
 
-    <!-- Image and Video Publicity Section -->
-    <section class="publicity mt-5">
-        <h2>Publicity & Promotion</h2>
-        <div class="row">
-            <!-- Image Promotion -->
-            <div class="col-md-6 mb-3">
-                <h4>Featured Promotion Image</h4>
-                <img src="{% static 'image/wash.jpeg' %}" alt="Promotion Image" class="img-fluid rounded shadow">
+    <!-- Analytics Section -->
+    <section class="mb-12">
+        <h2 class="text-2xl font-bold mb-6 text-gray-800">Delivery Analytics</h2>
+        <div class="bg-white rounded-lg shadow-md p-6">
+            <canvas id="deliveryChart" width="400" height="200"></canvas>
+        </div>
+    </section>
+
+    <!-- Publicity & Promotion Section -->
+    <section class="mb-12">
+        <h2 class="text-2xl font-bold mb-6 text-gray-800">Publicity & Promotion</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="bg-white rounded-lg shadow-md p-6">
+                <h3 class="text-xl font-semibold mb-4 text-gray-700">Featured Promotion</h3>
+                <img src="{% static 'image/1.jpeg' %}" alt="Promotion Image" class="w-full h-64 object-cover rounded-lg shadow-md mb-4">
+                <p class="text-gray-600">Discover our new express delivery service! Get your items delivered within 2 hours.</p>
             </div>
-            <!-- Video Promotion -->
-            <div class="col-md-6 mb-3">
-                <h4>Featured Promotion Video</h4>
-                <video controls class="w-100 shadow rounded">
-                    <source src="{% static 'assets/videos.mp4' %}" type="video/mp4">
-                    Your browser does not support the video tag.
-                </video>
+            <div class="bg-white rounded-lg shadow-md p-6">
+                <h3 class="text-xl font-semibold mb-4 text-gray-700">Customer Reviews</h3>
+                <ul class="space-y-4">
+                    <li class="flex items-start">
+                        <i class="fas fa-star text-yellow-500 mr-2"></i>
+                        <p class="text-gray-600">"Amazing service! Fast and reliable."</p>
+                    </li>
+                    <li class="flex items-start">
+                        <i class="fas fa-star text-yellow-500 mr-2"></i>
+                        <p class="text-gray-600">"Delivered ahead of schedule. Highly recommend!"</p>
+                    </li>
+                    <li class="flex items-start">
+                        <i class="fas fa-star text-yellow-500 mr-2"></i>
+                        <p class="text-gray-600">"The best delivery service I’ve used."</p>
+                    </li>
+                </ul>
             </div>
         </div>
     </section>
-</div>
+{% endblock %}
 
-<!-- Footer -->
-<footer class="text-center mt-5">
-    <p>&copy; 2024 Pressing App - Deliver Panel</p>
-</footer>
-
-<!-- Custom Styles and Animation -->
-<style>
-    /* Map container */
-    #map {
-        height: 400px;
-        width: 100%;
-    }
-
-    /* Card Hover Animation */
-    .card {
-        transition: transform 0.3s ease;
-    }
-
-    .card:hover {
-        transform: scale(1.05);
-    }
-
-    /* Button Hover Animation */
-    .btn {
-        transition: background-color 0.3s ease, transform 0.3s ease;
-    }
-
-    .btn:hover {
-        background-color: #007bff;
-        transform: scale(1.05);
-    }
-
-    /* Geolocation and Publicity Section */
-    .publicity img, .publicity video {
-        max-height: 350px;
-        object-fit: cover;
-    }
-
-    /* Footer Styling */
-    footer {
-        background-color: #f8f9fa;
-        padding: 20px;
-        position: relative;
-        bottom: 0;
-        width: 100%;
-    }
-
-    /* Mobile Responsive Adjustments */
-    @media (max-width: 768px) {
-        h2 {
-            font-size: 1.5rem;
-        }
-
-        .card-title {
-            font-size: 1.25rem;
-        }
-
-        #map {
-            height: 250px;
-        }
-
-        .publicity img, .publicity video {
-            max-height: 250px;
-        }
-    }
-</style>
-
-<!-- Custom JavaScript -->
+{% block extra_scripts %}
 <script>
     // Geolocation Script
     document.getElementById('get-location').addEventListener('click', function() {
@@ -190,8 +152,35 @@
             title: 'You are here',
         });
     }
+
+    // Delivery Analytics Chart
+    const ctx = document.getElementById('deliveryChart').getContext('2d');
+    new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+            datasets: [{
+                label: 'Completed Deliveries',
+                data: [650, 590, 800, 810, 960, 1000],
+                borderColor: 'rgb(75, 192, 192)',
+                tension: 0.1
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: 'top',
+                },
+                title: {
+                    display: true,
+                    text: 'Monthly Delivery Performance'
+                }
+            }
+        }
+    });
 </script>
 
 <!-- Google Maps API -->
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAOVYRIgupAurZup5y1PRh8Ismb1A3lLao&callback=initMap" async defer></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap" async defer></script>
 {% endblock %}

@@ -85,4 +85,7 @@ urlpatterns = [
     path('deliver-statistics/', views.deliver_statistics, name='deliver_statistics'),
     path('give-bonus/<int:user_id>/', views.give_bonus, name='give_bonus'),
 
+
+    path('profile_deliver/', views.profile_deliver, name='profile_deliver'),
+
 ]

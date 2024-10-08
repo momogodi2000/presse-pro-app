@@ -6,197 +6,100 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}Deliver Panel{% endblock %}</title>
 
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
 
     <!-- Font Awesome CSS -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="{% static 'css/deliver.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <!-- Google Maps API -->
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAOVYRIgupAurZup5y1PRh8Ismb1A3lLao&libraries=places&callback=initMap" async defer></script>
-
-    <style>
-        /* Global Styles */
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f8f9fa;
-        }
-
-        .dashboard {
-            display: flex;
-            min-height: 100vh;
-            transition: margin-left 0.3s ease;
-        }
-
-        .dashboard-nav {
-            width: 250px;
-            background-color: #343a40;
-            transition: transform 0.3s ease, width 0.3s ease;
-            overflow-x: hidden;
-        }
-
-        .dashboard-nav header {
-            padding: 15px;
-            display: flex;
-            align-items: center;
-            border-bottom: 1px solid #495057;
-        }
-
-        .brand-logo {
-            color: #ffc107;
-            font-weight: bold;
-            text-decoration: none;
-        }
-
-        .dashboard-nav-list {
-            list-style: none;
-            padding: 0;
-        }
-
-        .dashboard-nav-item {
-            padding: 15px 20px;
-            color: #ffffff;
-            text-decoration: none;
-            transition: background-color 0.3s ease, padding-left 0.3s ease;
-        }
-
-        .dashboard-nav-item:hover, 
-        .dashboard-nav-item.active {
-            background-color: #495057;
-            padding-left: 25px;
-        }
-
-        .logout-btn {
-            margin: 20px;
-            text-align: center;
-            background-color: #dc3545;
-            border: none;
-            padding: 10px;
-            color: #fff;
-            transition: background-color 0.3s ease;
-        }
-
-        .logout-btn:hover {
-            background-color: #c82333;
-        }
-
-        .dashboard-app {
-            flex-grow: 1;
-            padding: 20px;
-            overflow-y: auto;
-        }
-
-        .dashboard-toolbar {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        .menu-toggle {
-            font-size: 24px;
-            cursor: pointer;
-        }
-
-        /* Map styles */
-        #map {
-            height: 400px;
-            width: 100%;
-            margin-top: 20px;
-            border-radius: 8px;
-        }
-
-        /* Responsive styles */
-        @media (max-width: 768px) {
-            .dashboard-nav {
-                position: fixed;
-                left: -250px;
-                top: 0;
-                height: 100%;
-                transform: translateX(0);
-                transition: transform 0.3s ease;
-            }
-
-            .dashboard-nav.active {
-                transform: translateX(250px);
-            }
-
-            .dashboard-app {
-                margin-left: 0;
-                padding: 15px;
-            }
-        }
-
-        /* Smooth open/close animation */
-        .dashboard-nav.active {
-            transform: translateX(0);
-        }
-
-        /* Fade-in effect for nav items */
-        .fade-in {
-            opacity: 0;
-            animation: fadeIn 0.5s ease forwards;
-        }
-
-        @keyframes fadeIn {
-            100% {
-                opacity: 1;
-            }
-        }
-    </style>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAOVYRIgupAurZup5y1PRh8Ismb1A3lLao&libraries=places&callback=initMap" 
+            async defer></script>
 </head>
-<body>
-    <div class="dashboard">
-        <div class="dashboard-nav fade-in">
-            <header>
-                <a href="{% url 'pressing_manager' %}" class="brand-logo">
-                    <i class="fas fa-tshirt"></i> 
-                    <span>PressPro Deliver Dashboard</span>
+<body class="bg-gray-100 font-sans">
+    <div class="flex h-screen overflow-hidden">
+        <!-- Sidebar -->
+        <aside class="bg-gray-800 text-white w-64 flex-shrink-0 transition-transform duration-300 ease-in-out transform lg:translate-x-0 -translate-x-full" id="sidebar">
+            <div class="p-4">
+                <a href="{% url 'pressing_manager' %}" class="flex items-center space-x-2 text-yellow-400 font-bold text-lg">
+                    <i class="fas fa-tshirt"></i>
+                    <span>PressPro Deliver</span>
                 </a>
-                <div class="profile-avatar">
-                    {% if user.profile_picture %}
-                        <img src="{{ user.profile_picture.url }}" alt="{{ user.username }}'s Avatar" class="img-fluid">
-                    {% else %}
-                        <img src="{% static 'image/auth.jpeg' %}" alt="Default Avatar" class="img-fluid">
-                    {% endif %}
+            </div>
+            <nav class="mt-5">
+                <a href="{% url 'deliver_panel' %}" class="block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-700 hover:text-white">
+                    <i class="fas fa-tachometer-alt mr-2"></i> Dashboard
+                </a>
+                <a href="{% url 'profile_deliver' %}" class="flex items-center py-2.5 px-4 rounded transition duration-200 hover:bg-gray-700 hover:text-white">
+                    <i class="fas fa-user mr-2"></i>
+                    <span>Profile Overview</span>
+                </a>
+                <a href="{% url 'manage_deliver' %}" class="block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-700 hover:text-white">
+                    <i class="fas fa-users-cog mr-2"></i> Manage Deliver
+                </a>
+                <a href="{% url 'chat' %}" class="block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-700 hover:text-white">
+                    <i class="fas fa-comments mr-2"></i> Chat with Pressing Team
+                </a>
+                <a href="#" class="block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-700 hover:text-white">
+                    <i class="fas fa-calendar-alt mr-2"></i> Chat with Admin
+                </a>
+                <a href="#" class="block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-700 hover:text-white">
+                    <i class="fas fa-map-marker-alt mr-2"></i> Geolocation Tracking
+                </a>
+                <a href="#" class="block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-700 hover:text-white">
+                    <i class="fas fa-map mr-2"></i> Integration with Mapping Services
+                </a>
+                <a href="#" class="block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-700 hover:text-white">
+                    <i class="fas fa-signature mr-2"></i> Proof of Delivery
+                </a>
+                <a href="#" class="block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-700 hover:text-white">
+                    <i class="fas fa-bell mr-2"></i> Notification
+                </a>
+                <a href="{% url 'setting_deliver' %}" class="block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-700 hover:text-white">
+                    <i class="fas fa-cogs mr-2"></i> Settings
+                </a>
+            </nav>
+            <div class="mt-auto p-4">
+                <a href="{% url 'logout' %}" class="block w-full py-2 px-4 bg-red-500 text-white text-center rounded hover:bg-red-600 transition duration-200">Logout</a>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <div class="flex-1 flex flex-col overflow-hidden">
+            <!-- Top Navbar -->
+            <header class="bg-white shadow-sm z-10">
+                <div class="max-w-7xl mx-auto py-4 px-4 sm:px-6 lg:px-8 flex justify-between items-center">
+                    <!-- Sidebar Toggle Button -->
+                    <button id="sidebar-toggle" class="text-gray-500 focus:outline-none lg:hidden">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    <div class="flex items-center">
+                        <!-- User Avatar -->
+                        {% if user.profile_picture %}
+                            <img src="{{ user.profile_picture.url }}" alt="{{ user.username }}'s Avatar" class="h-8 w-8 rounded-full object-cover">
+                        {% else %}
+                            <img src="{% static 'image/auth.jpeg' %}" alt="Default Avatar" class="h-8 w-8 rounded-full object-cover">
+                        {% endif %}
+                        <span class="ml-2 text-sm font-medium text-gray-700">{{ user.username }}</span>
+                    </div>
                 </div>
             </header>
-            <nav class="dashboard-nav-list">
-                <a href="{% url 'deliver_panel' %}" class="dashboard-nav-item active"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
-                <a href="{% url 'manage_deliver' %}" class="dashboard-nav-item"><i class="fas fa-users-cog"></i> Manage Deliver</a>
-                <a href="{% url 'chat' %}" class="dashboard-nav-item"><i class="fas fa-comments"></i> Chat with Pressing Team</a>
-                <a href="{% url 'instant_chat' %}" class="dashboard-nav-item"><i class="fas fa-calendar-alt"></i> Chat with Admin</a>
-                <a href="#" class="dashboard-nav-item"><i class="fas fa-map-marker-alt"></i> Geolocation Tracking</a>
-                <a href="#" class="dashboard-nav-item"><i class="fas fa-map"></i> Integration with Mapping Services</a>
-                <a href="#" class="dashboard-nav-item"><i class="fas fa-signature"></i> Proof of Delivery</a>
-                <a href="#" class="dashboard-nav-item"><i class="fas fa-bell"></i> Notification</a>
-                <a href="{% url 'setting_deliver' %}" class="dashboard-nav-item"><i class="fas fa-cogs"></i> Settings</a>
-            </nav>
-            <a href="{% url 'logout' %}" class="btn btn-primary logout-btn">Logout</a>
+
+            <!-- Page Content -->
+            <main class="flex-1 overflow-x-hidden overflow-y-auto bg-gray-100">
+                <div class="container mx-auto px-6 py-8">
+                    {% block content %}
+                    {% endblock %}
+                </div>
+            </main>
         </div>
-        <main class="dashboard-app">
-            <header class="dashboard-toolbar">
-                <a href="#!" class="menu-toggle"><i class="fas fa-bars"></i></a>
-            </header>
-            <div class="dashboard-content">
-                {% block content %}
-                {% endblock %}
-            </div>
-        </main>
     </div>
 
-    <!-- Bootstrap JS and dependencies -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
-    <!-- Custom JS for toggling the sidebar -->
     <script>
-        document.querySelector('.menu-toggle').addEventListener('click', function() {
-            const nav = document.querySelector('.dashboard-nav');
-            nav.classList.toggle('active');
+        // Sidebar toggle functionality
+        document.getElementById('sidebar-toggle').addEventListener('click', function() {
+            const sidebar = document.getElementById('sidebar');
+            sidebar.classList.toggle('-translate-x-full');
         });
     </script>
 </body>

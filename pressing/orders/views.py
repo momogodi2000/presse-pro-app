@@ -1169,3 +1169,9 @@ def manage_deliver_view(request):
     }
     return render(request, 'panel/deliver/track/manage_deliver.html', context)
 
+
+
+@login_required
+def profile_deliver(request):
+    return render(request, 'panel/deliver/profile/profile_deliver.html', {'user': request.user})
+
