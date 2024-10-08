@@ -1,0 +1,78 @@
+{% extends 'panel/base/base_home.html' %}
+
+{% load static %}
+
+{% block title %}About Us | Pressing Wash Dress Service{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<header class="hero bg-cover bg-center text-white text-center py-32" style="background-image: url('{% static 'image/about_hero.jpg' %}');">
+    <h1 class="text-5xl font-bold">About Us</h1>
+    <p class="mt-4 text-lg">Learn more about our mission, team, and the services we offer.</p>
+</header>
+
+<!-- Our Mission Section -->
+<div class="container mx-auto py-16">
+    <h2 class="text-4xl font-bold text-center mb-4">Our Mission</h2>
+    <p class="text-center text-lg">At Pressing Wash, our mission is to provide exceptional dress care services with convenience and efficiency. We are dedicated to ensuring the highest quality of pressing and washing, delivering impeccable results every time.</p>
+</div>
+
+<!-- Meet Our Team Section -->
+<div class="container mx-auto py-16">
+    <h2 class="text-4xl font-bold text-center mb-4">Meet Our Team</h2>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="team-member text-center">
+            <img src="{% static 'image/washing_service.jpeg' %}" alt="Team Member 1" class="w-32 h-32 rounded-full mx-auto mb-4 shadow-lg">
+            <h5 class="text-xl font-semibold">John Doe</h5>
+            <p class="text-gray-600">Founder & CEO</p>
+        </div>
+        <div class="team-member text-center">
+            <img src="{% static 'image/washing_service.jpeg' %}" alt="Team Member 2" class="w-32 h-32 rounded-full mx-auto mb-4 shadow-lg">
+            <h5 class="text-xl font-semibold">Jane Smith</h5>
+            <p class="text-gray-600">Chief Operating Officer</p>
+        </div>
+        <div class="team-member text-center">
+            <img src="{% static 'image/washing_service.jpeg' %}" alt="Team Member 3" class="w-32 h-32 rounded-full mx-auto mb-4 shadow-lg">
+            <h5 class="text-xl font-semibold">Mike Johnson</h5>
+            <p class="text-gray-600">Head of Customer Service</p>
+        </div>
+    </div>
+</div>
+
+<!-- Our Portfolio Section -->
+<div class="container mx-auto py-16">
+    <h2 class="text-4xl font-bold text-center mb-4">Our Portfolio</h2>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="portfolio-item">
+            <img src="{% static 'image/pickup_service.jpeg' %}" alt="Portfolio Item 1" class="w-full h-48 object-cover rounded-lg shadow-lg mb-2">
+            <h5 class="text-center text-lg font-semibold">Dress Pressing Excellence</h5>
+        </div>
+        <div class="portfolio-item">
+            <img src="{% static 'image/pickup_service.jpeg' %}" alt="Portfolio Item 2" class="w-full h-48 object-cover rounded-lg shadow-lg mb-2">
+            <h5 class="text-center text-lg font-semibold">High-Quality Wash Services</h5>
+        </div>
+        <div class="portfolio-item">
+            <img src="{% static 'image/pickup_service.jpeg' %}" alt="Portfolio Item 3" class="w-full h-48 object-cover rounded-lg shadow-lg mb-2">
+            <h5 class="text-center text-lg font-semibold">Efficient Pickup & Delivery</h5>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+    .hero {
+        background-size: cover;
+        color: #fff;
+        text-align: center;
+    }
+</style>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // You can add custom scripts here if necessary
+    });
+</script>
+{% endblock %}

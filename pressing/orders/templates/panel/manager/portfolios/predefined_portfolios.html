@@ -1,0 +1,28 @@
+{% extends 'panel/base/base2.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="text-center">Select a Portfolio</h2>
+    <div class="text-danger">
+        {{ errors }}
+    </div>
+        <div style="display: flex; flex-direction: row; justify-content: space-between; align-items: center;">
+            {% for pred in predefined %}
+        <div class="bg-white p-2" style="border-radius: 10px; border: 2px solid gray;">
+            <div class="form-row py-2">
+                <div class="col-md-6">
+                    Businness name: {{ pred.business_name }}
+                    <br> Businness email: {{ pred.email }}
+                </div>
+                <div class="col-md-6">
+                   Tel: {{ pred.telephone_number }}
+                   <br>Services: {{ pred.services_offered }}
+                </div>
+            </div>
+            <a href="{% url 'selected_portfolio' pred.id %}" class="btn btn-success btn-block">Select Portfolio</a>
+        </div>
+        {% endfor %}
+        </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Receipt</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .container {
+            margin-top: 50px;
+        }
+        .receipt {
+            border: 1px solid #dee2e6;
+            padding: 20px;
+            border-radius: 5px;
+            background-color: #ffffff;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2 class="text-center">Receipt</h2>
+    <div class="receipt">
+        <h4>Receipt ID: {{ receipt.id }}</h4>
+        <p>Business Name: {{ receipt.business_name }}</p>
+        <p>Total Paid: {{ receipt.total }} FCFA</p>
+        <p>Reference ID: {{ receipt.reference }}</p>
+        <p>Phone number: {{ receipt.tel }}</p>
+        <p>Date: {{ receipt.date }}</p>
+    </div>
+    <a href="{{ receipt.receipt_url }}" download target="_blank" class="btn btn-primary btn-block">Download Receipt</a>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script>
+    // Additional JS logic if needed
+</script>
+</body>
+</html>

@@ -1,0 +1,30 @@
+{% extends 'panel/base/clients_panel.html' %}
+{% load static %}
+{% block content %}
+<div class="p-5">
+    <a href="{% url 'pressing_search' %}" class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition duration-300">Go back</a>
+</div>
+
+<h1 class="text-center text-3xl font-bold mb-6">Book for Pressing Services</h1>
+
+<form action="{% url 'pressing_appointment' pressing.id %}" method="post" class="max-w-lg mx-auto bg-white p-6 rounded-lg shadow-md">
+    {% csrf_token %}
+    <div class="mb-4">
+        <label class="block text-gray-700" for="pressing-id">Pressing ID</label>
+        <input disabled id="pressing-id" class="form-input mt-1 block w-full border-gray-300 rounded-md shadow-sm" type="text" value="{{ pressing.id }}">
+    </div>
+    <div class="mb-4">
+        <label class="block text-gray-700" for="pressing-name">Pressing Name</label>
+        <input disabled id="pressing-name" class="form-input mt-1 block w-full border-gray-300 rounded-md shadow-sm" type="text" value="{{ pressing.business_name }}">
+    </div>
+    <div class="mb-4">
+        <label class="block text-gray-700" for="services">Services</label>
+        <input name="service" id="services" class="form-input mt-1 block w-full border-gray-300 rounded-md shadow-sm" type="text" value="{{ pressing.services_offered }}" disabled>
+    </div>
+    <div class="mb-4">
+        <label class="block text-gray-700" for="phone">Phone Number</label>
+        <input name="tel" id="phone" class="form-input mt-1 block w-full border-gray-300 rounded-md shadow-sm" type="tel" required>
+    </div>
+    <button class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition duration-300" type="submit">Book</button>
+</form>
+{% endblock %}

@@ -1,0 +1,82 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Pressing Wash Dress Service{% endblock %}</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+
+    <style>
+        .fadeIn {
+            animation: fadeIn 1.5s ease-in-out forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-800">
+
+    <!-- Navbar -->
+    <nav class="bg-gray-900 text-white p-4 shadow-md">
+        <div class="container mx-auto flex justify-between items-center">
+            <a class="text-2xl font-bold" href="#">Pressing Wash</a>
+            <button class="md:hidden block text-white">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+                </svg>
+            </button>
+            <div class="hidden md:flex space-x-6">
+                <a class="hover:text-blue-500" href="{% url 'home' %}">Home</a>
+                <a class="hover:text-blue-500" href="{% url 'about' %}">About Us</a>
+                <a class="hover:text-blue-500" href="{% url 'services' %}">Our Services</a>
+                <a class="hover:text-blue-500" href="{% url 'contact' %}">Contact Us</a>
+                <a class="hover:text-blue-500" href="{% url 'login' %}">Login</a>
+                <a class="hover:text-blue-500" href="{% url 'register' %}">Register</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Content Block -->
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-6 mt-16">
+        <div class="container mx-auto text-center">
+            <p>&copy; 2024 Pressing Wash, All Rights Reserved.</p>
+            <p>Follow us on 
+                <a href="https://facebook.com/pressingwash" target="_blank" class="underline hover:text-blue-500">Facebook</a>, 
+                <a href="https://twitter.com/pressingwash" target="_blank" class="underline hover:text-blue-500">Twitter</a>, 
+                <a href="https://instagram.com/pressingwash" target="_blank" class="underline hover:text-blue-500">Instagram</a>
+                for the latest updates and promotions.
+            </p>
+        </div>
+    </footer>
+
+    <!-- JavaScript for Animations -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('fadeIn');
+                    }
+                });
+            });
+            document.querySelectorAll('.fadeIn').forEach((el) => {
+                observer.observe(el);
+            });
+        });
+    </script>
+</body>
+</html>

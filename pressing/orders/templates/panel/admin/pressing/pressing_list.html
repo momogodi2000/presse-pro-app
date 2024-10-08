@@ -1,0 +1,82 @@
+{% extends 'panel/base/base_admin.html' %}
+
+{% block content %}
+<div class="container mx-auto py-8">
+    <h1 class="text-3xl font-bold mb-6 text-gray-800">Pressing Profiles</h1>
+
+    <a href="{% url 'pressing_add' %}" class="inline-block bg-blue-500 text-white py-2 px-4 rounded-lg shadow-md hover:bg-blue-600 transition duration-300 ease-in-out">
+        Add New Pressing
+    </a>
+
+    <div class="mt-8 overflow-x-auto">
+        <table class="min-w-full bg-white shadow-md rounded-lg">
+            <thead class="bg-gray-800 text-white">
+                <tr>
+                    <th class="py-3 px-4 text-left text-sm font-semibold uppercase tracking-wide">Business Name</th>
+                    <th class="py-3 px-4 text-left text-sm font-semibold uppercase tracking-wide">Telephone</th>
+                    <th class="py-3 px-4 text-left text-sm font-semibold uppercase tracking-wide">Region</th>
+                    <th class="py-3 px-4 text-left text-sm font-semibold uppercase tracking-wide">Town</th>
+                    <th class="py-3 px-4 text-left text-sm font-semibold uppercase tracking-wide">Quarter</th>
+                    <th class="py-3 px-4 text-left text-sm font-semibold uppercase tracking-wide">Latitude</th>
+                    <th class="py-3 px-4 text-left text-sm font-semibold uppercase tracking-wide">Longitude</th>
+                    <th class="py-3 px-4 text-left text-sm font-semibold uppercase tracking-wide">Status</th>
+                    <th class="py-3 px-4 text-left text-sm font-semibold uppercase tracking-wide">Paid</th>
+                    <th class="py-3 px-4 text-left text-sm font-semibold uppercase tracking-wide">Services Offered</th>
+                    <th class="py-3 px-4 text-left text-sm font-semibold uppercase tracking-wide">Pricing</th>
+                    <th class="py-3 px-4 text-left text-sm font-semibold uppercase tracking-wide">Social Media</th>
+                    <th class="py-3 px-4 text-left text-sm font-semibold uppercase tracking-wide">Actions</th>
+                </tr>
+            </thead>
+            <tbody class="text-gray-700">
+                {% for profile in profiles %}
+                <tr class="border-t hover:bg-gray-100 transition duration-200 ease-in-out">
+                    <td class="py-3 px-4 text-sm">{{ profile.business_name }}</td>
+                    <td class="py-3 px-4 text-sm">{{ profile.telephone_number }}</td>
+                    <td class="py-3 px-4 text-sm">{{ profile.region.name }}</td>
+                    <td class="py-3 px-4 text-sm">{{ profile.town.name }}</td>
+                    <td class="py-3 px-4 text-sm">{{ profile.quarter.name }}</td>
+                    <td class="py-3 px-4 text-sm">{{ profile.latitude }}</td>
+                    <td class="py-3 px-4 text-sm">{{ profile.longitude }}</td>
+                    <td class="py-3 px-4 text-sm">
+                        {% if profile.status == 'pending' %}
+                            <span class="text-yellow-500 font-semibold">Pending</span>
+                        {% elif profile.status == 'accepted' %}
+                            <span class="text-green-500 font-semibold">Accepted</span>
+                        {% else %}
+                            <span class="text-red-500 font-semibold">Rejected</span>
+                        {% endif %}
+                    </td>
+                    <td class="py-3 px-4 text-sm">
+                        {% if profile.paid %}
+                            <span class="text-green-500">Paid</span>
+                        {% else %}
+                            <span class="text-red-500">Not Paid</span>
+                        {% endif %}
+                    </td>
+                    <td class="py-3 px-4 text-sm">{{ profile.services_offered|linebreaksbr }}</td>
+                    <td class="py-3 px-4 text-sm">{{ profile.pricing|linebreaksbr }}</td>
+                    <td class="py-3 px-4 text-sm">
+                        {% if profile.instagram_url %}
+                            <a href="{{ profile.instagram_url }}" target="_blank" class="text-pink-500 hover:text-pink-700">Instagram</a><br>
+                        {% endif %}
+                        {% if profile.facebook_url %}
+                            <a href="{{ profile.facebook_url }}" target="_blank" class="text-blue-500 hover:text-blue-700">Facebook</a><br>
+                        {% endif %}
+                        {% if profile.tiktok_url %}
+                            <a href="{{ profile.tiktok_url }}" target="_blank" class="text-red-500 hover:text-red-700">TikTok</a><br>
+                        {% endif %}
+                        {% if profile.youtube_url %}
+                            <a href="{{ profile.youtube_url }}" target="_blank" class="text-red-600 hover:text-red-800">YouTube</a>
+                        {% endif %}
+                    </td>
+                    <td class="py-3 px-4 text-sm">
+                        <a href="{% url 'pressing_edit' profile.pk %}" class="text-blue-500 hover:text-blue-700">Edit</a> |
+                        <a href="{% url 'pressing_delete' profile.pk %}" class="text-red-500 hover:text-red-700">Delete</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

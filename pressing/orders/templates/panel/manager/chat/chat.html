@@ -1,0 +1,134 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat with Manager</title>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    
+    <!-- FontAwesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .chat-container {
+            max-width: 800px;
+            margin: auto;
+            background: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            height: 80vh;
+        }
+
+        .chat-messages {
+            flex-grow: 1;
+            padding: 20px;
+            overflow-y: auto;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .chat-messages h3 {
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+
+        .chat-messages ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .chat-messages li {
+            margin-bottom: 10px;
+            padding: 10px;
+            border-radius: 5px;
+            position: relative;
+            animation: fadeIn 0.5s;
+        }
+
+        .chat-messages li strong {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .timestamp {
+            font-size: 0.8rem;
+            color: #888;
+            position: absolute;
+            right: 10px;
+            bottom: 10px;
+        }
+
+        .chat-form {
+            padding: 15px;
+            background: #f1f1f1;
+            border-top: 1px solid #ddd;
+        }
+
+        .chat-form form {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .chat-form input {
+            flex-grow: 1;
+            margin-right: 10px;
+        }
+
+        @media (max-width: 576px) {
+            .chat-container {
+                height: 90vh;
+            }
+
+            .chat-form input {
+                margin-right: 5px;
+            }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+    <div class="chat-container">
+        <div class="chat-messages">
+            <h3>Chat Messages</h3>
+            <ul>
+                {% for message in messages %}
+                    <li>
+                        <strong>{{ message.sender.username }}:</strong> {{ message.message }}
+                        <span class="timestamp">{{ message.timestamp|date:"H:i" }}</span>
+                    </li>
+                {% empty %}
+                    <li>No messages yet</li>
+                {% endfor %}
+            </ul>
+        </div>
+    
+        <div class="chat-form">
+            <form method="post">
+                {% csrf_token %}
+                {{ form.message.label_tag }} {{ form.message }}
+                <button type="submit" class="btn btn-primary">Send</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

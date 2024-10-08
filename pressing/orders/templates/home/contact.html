@@ -1,0 +1,62 @@
+{% extends 'panel/base/base_home.html' %}
+
+{% load static %}
+
+{% block title %}Contact Us | Pressing Wash Dress Service{% endblock %}
+
+{% block content %}
+<header class="hero text-white text-center py-20 fade-in">
+    <h1 class="text-5xl font-bold">Contact Us</h1>
+    <p class="text-xl mt-4">We'd love to hear from you. Get in touch with us today!</p>
+</header>
+
+<div class="container mx-auto my-16">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <!-- Contact Form -->
+        <div class="contact-form bg-white p-8 shadow-lg rounded-lg fade-in">
+            <h2 class="text-3xl font-semibold mb-6">Send Us a Message</h2>
+            <form method="post" class="space-y-6">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit" class="bg-blue-500 text-white px-6 py-3 rounded hover:bg-blue-600 transition">Send Message</button>
+            </form>
+        </div>
+        <!-- Contact Info -->
+        <div class="contact-info bg-white p-8 shadow-lg rounded-lg fade-in">
+            <h2 class="text-3xl font-semibold mb-6">Contact Information</h2>
+            <p class="text-lg mb-4"><strong>Email:</strong> contact@pressingwash.com</p>
+            <p class="text-lg mb-4"><strong>Phone:</strong> 237 09876282972</p>
+            <p class="text-lg"><strong>Address:</strong> 123 Pressing St, Yaoundé, Cameroon</p>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block extra_css %}
+<link href="{% static 'css/contact.css' %}" rel="stylesheet">
+<style>
+    .hero {
+        background: url('{% static "image/images.jpeg" %}') no-repeat center center;
+        background-size: cover;
+        color: rgba(255, 255, 255, 0.9);
+    }
+</style>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/contact.js' %}"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const formElements = document.querySelectorAll('.contact-form input, .contact-form textarea');
+        formElements.forEach(el => {
+            el.addEventListener('focus', function() {
+                this.classList.add('animate__animated', 'animate__pulse');
+            });
+            el.addEventListener('blur', function() {
+                this.classList.remove('animate__animated', 'animate__pulse');
+            });
+        });
+    });
+</script>
+{% endblock %}

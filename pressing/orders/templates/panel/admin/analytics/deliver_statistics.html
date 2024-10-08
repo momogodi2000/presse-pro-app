@@ -1,0 +1,77 @@
+{% extends 'panel/base/base_admin.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container mx-auto px-4 py-8">
+    <h1 class="text-3xl font-bold mb-6">Delivery User Statistics</h1>
+
+    <table class="min-w-full bg-white border border-gray-200">
+        <thead>
+            <tr>
+                <th class="py-2 px-4 border-b">Username</th>
+                <th class="py-2 px-4 border-b">Deliveries Completed</th>
+                <th class="py-2 px-4 border-b">Client Recuperation</th>
+                <th class="py-2 px-4 border-b">Average Rating</th>
+                <th class="py-2 px-4 border-b">Salary (XAF)</th>
+                <th class="py-2 px-4 border-b">Bonus</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for stat in delivery_stats %}
+            <tr>
+                <td class="py-2 px-4 border-b">{{ stat.user.username }}</td>
+                <td class="py-2 px-4 border-b">{{ stat.stats.deliveries_completed }}</td>
+                <td class="py-2 px-4 border-b">{{ stat.stats.client_recuperation }}</td>
+                <td class="py-2 px-4 border-b">
+                    {% if stat.average_rating %}
+                        {{ stat.average_rating|floatformat:1 }}
+                    {% else %}
+                        No Ratings
+                    {% endif %}
+                </td>
+                <td class="py-2 px-4 border-b">{{ stat.stats.salary }}</td>
+                <td class="py-2 px-4 border-b">
+                    <button class="bg-blue-500 text-white px-2 py-1 rounded hover:bg-blue-600" 
+                            onclick="giveBonus('{{ stat.user.id }}')">Give Bonus</button>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <canvas id="deliveryChart" class="mt-8"></canvas>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    function giveBonus(userId) {
+        fetch(`/give-bonus/${userId}/`, { method: 'POST', headers: { 'X-CSRFToken': '{{ csrf_token }}' } })
+            .then(response => response.json())
+            .then(data => {
+                alert(`Bonus updated! New Salary: ${data.new_salary}`);
+                location.reload();  // Reload to see updated stats
+            });
+    }
+
+    // Example data for the chart
+    const ctx = document.getElementById('deliveryChart').getContext('2d');
+    const deliveryChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: [{% for stat in delivery_stats %}'{{ stat.user.username }}'{% if not forloop.last %},{% endif %}{% endfor %}],
+            datasets: [{
+                label: 'Deliveries Completed',
+                data: [{% for stat in delivery_stats %}{{ stat.stats.deliveries_completed }}{% if not forloop.last %},{% endif %}{% endfor %}],
+                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                borderColor: 'rgba(75, 192, 192, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: { beginAtZero: true }
+            }
+        }
+    });
+</script>
+{% endblock %}

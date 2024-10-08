@@ -1,0 +1,187 @@
+{% extends 'panel/base/base_manager.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="text-center">Apply for Portfolio</h2>
+    <div class="text-danger">
+        {{ errors }}
+    </div>
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        
+        <div class="form-row">
+            <div class="col-md-6">
+                {{ profile_form.business_name.label_tag }}
+                {{ profile_form.business_name }}
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="col-md-6">
+                {{ profile_form.telephone_number.label_tag }}
+                {{ profile_form.telephone_number }}
+            </div>
+            <div class="col-md-6">
+                {{ profile_form.email.label_tag }}
+                {{ profile_form.email }}
+            </div>
+        </div>
+
+        <div class="form-group">
+            {{ profile_form.services_offered.label_tag }}
+            {{ profile_form.services_offered }}
+        </div>
+
+        <div class="form-group">
+            {{ profile_form.pricing.label_tag }}
+            {{ profile_form.pricing }}
+        </div>
+
+        <div class="form-group">
+            {{ profile_form.about_us.label_tag }}
+            {{ profile_form.about_us }}
+        </div>
+
+        <div class="form-group">
+            {{ profile_form.pressing_count.label_tag }}
+            {{ profile_form.pressing_count }}
+        </div>
+
+        <!-- Placeholder for dynamically added fields -->
+        <div id="dynamicFields"></div>
+
+        <!-- File upload section for photos and videos -->
+        <div class="form-group">
+            <label for="photos">Upload Photos</label>
+            <input type="file" name="photos" id="photos" class="form-control-file" multiple>
+        </div>
+
+        <div class="form-group">
+            <label for="videos">Upload Videos</label>
+            <input type="file" name="videos" id="videos" class="form-control-file" multiple>
+        </div>
+        <div>
+            <input type="button" id="location" value="get location" class="btn btn-primary">
+            <label for="">Latitude</label>
+            <input type="text" name="latitude" id="latitude" required>
+            <label for="">Longitude</label>
+            <input type="text" name="longitude" id="longitude" required>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-block">Submit Portfolio</button>
+    </form>
+</div>
+
+<!-- JavaScript to handle dynamic field addition -->
+<script>
+        const locationBtn = document.getElementById("location");
+        locationBtn.addEventListener("click", getAndSetGeolocation)
+    function getAndSetGeolocation() {
+        if (navigator.geolocation) {
+            const latitudeInput = document.getElementById("latitude");
+            const longitudeInput = document.getElementById("longitude");
+            navigator.geolocation.getCurrentPosition((position) => {
+                console.log(position)
+                latitudeInput.innerHTML = position.coords.latitude
+                latitudeInput.value = position.coords.latitude
+                longitudeInput.innerHTML = position.coords.longitude
+                longitudeInput.value = position.coords.longitude
+            })
+        }
+    }
+    document.addEventListener('DOMContentLoaded', function () {
+        const pressingCountInput = document.getElementById('id_pressing_count');
+        const dynamicFieldsContainer = document.getElementById('dynamicFields');
+
+        pressingCountInput.addEventListener('input', function () {
+            // Clear existing fields
+            dynamicFieldsContainer.innerHTML = '';
+
+            const pressingCount = parseInt(pressingCountInput.value);
+
+            for (let i = 1; i <= pressingCount; i++) {
+                const dynamicFields = `
+                    <h5 class="mt-4">Pressing ${i}</h5>
+                    <div class="form-row">
+                        <div class="col-md-4">
+                            <label for="id_region_${i}">Region ${i}</label>
+                            <select name="region_${i}" id="id_region_${i}" class="form-control dynamic-region" required>
+                                {% for region in regions %}
+                                    <option value="{{ region.id }}">{{ region.name }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="id_city_${i}">City ${i}</label>
+                            <select name="town_${i}" id="id_city_${i}" class="form-control dynamic-city" required>
+                                <!-- Town options will be dynamically loaded based on region -->
+                            </select>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="id_quarter_${i}">Quarter ${i}</label>
+                            <select name="quarter_${i}" id="id_quarter_${i}" class="form-control dynamic-quarter" required>
+                                <!-- Quarter options will be dynamically loaded based on town -->
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="id_photo_${i}">Photo ${i}</label>
+                        <input type="file" name="photo_${i}" id="id_photo_${i}" class="form-control-file" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="id_video_${i}">Video ${i}</label>
+                        <input type="file" name="video_${i}" id="id_video_${i}" class="form-control-file" required>
+                    </div>`;
+
+                dynamicFieldsContainer.insertAdjacentHTML('beforeend', dynamicFields);
+            }
+
+            // Trigger dynamic loading of towns and quarters
+            attachRegionListeners();
+        });
+
+        function attachRegionListeners() {
+            const regionSelects = document.querySelectorAll('.dynamic-region');
+            regionSelects.forEach(select => {
+                select.addEventListener('change', function () {
+                    const regionId = this.value;
+                    const citySelect = this.closest('.form-row').querySelector('.dynamic-city');
+                    const quarterSelect = this.closest('.form-row').querySelector('.dynamic-quarter');
+                    
+                    fetchTowns(regionId, citySelect);
+                    citySelect.addEventListener('change', function () {
+                        const townId = this.value;
+                        fetchQuarters(townId, quarterSelect);
+                    });
+                });
+            });
+        }
+
+        function fetchTowns(regionId, citySelect) {
+            fetch("{% url 'load_towns' %}?region_id=" + regionId)
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data)
+                    citySelect.innerHTML = '<option value="">Select City</option>';
+                    data.forEach(town => {
+                        citySelect.innerHTML += `<option value="${town.id}">${town.name}</option>`;
+                    });
+                });
+        }
+
+        function fetchQuarters(townId, quarterSelect) {
+            fetch("{% url 'load_quarters' %}?town_id=" + townId)
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data)
+                    quarterSelect.innerHTML = '<option value="">Select Quarter</option>';
+                    data.forEach(quarter => {
+                        quarterSelect.innerHTML += `<option value="${quarter.id}">${quarter.name}</option>`;
+                    });
+                });
+        }
+    });
+</script>
+
+{% endblock %}

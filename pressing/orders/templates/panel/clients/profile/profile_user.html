@@ -1,0 +1,40 @@
+{% extends 'panel/base/clients_panel.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container mx-auto p-6 animate__animated animate__fadeIn">
+    <div class="bg-white rounded-lg shadow-md p-6">
+        <h2 class="text-2xl font-bold text-center mb-4">Profile</h2>
+        <div class="text-center mb-4">
+            {% if user.profile_picture %}
+                <img src="{{ user.profile_picture.url }}" alt="Profile Picture" class="w-32 h-32 rounded-full mx-auto">
+            {% else %}
+                <img src="{% static 'image/why.jpeg' %}" alt="Default Profile Picture" class="w-32 h-32 rounded-full mx-auto">
+            {% endif %}
+        </div>
+        <div class="mb-4">
+            <label for="username" class="block text-gray-700">Username:</label>
+            <input type="text" id="username" class="form-input mt-1 block w-full border-gray-300 rounded-md shadow-sm" value="{{ user.username }}" readonly>
+        </div>
+        <div class="mb-4">
+            <label for="email" class="block text-gray-700">Email:</label>
+            <input type="email" id="email" class="form-input mt-1 block w-full border-gray-300 rounded-md shadow-sm" value="{{ user.email }}" readonly>
+        </div>
+        <div class="mb-4">
+            <label for="role" class="block text-gray-700">Role:</label>
+            <input type="text" id="role" class="form-input mt-1 block w-full border-gray-300 rounded-md shadow-sm" value="{{ user.get_role_display }}" readonly>
+        </div>
+        <div class="mb-4">
+            <label for="phone" class="block text-gray-700">Phone:</label>
+            <input type="text" id="phone" class="form-input mt-1 block w-full border-gray-300 rounded-md shadow-sm" value="{{ user.phone }}" readonly>
+        </div>
+        <div class="mb-4">
+            <label for="address" class="block text-gray-700">Address:</label>
+            <input type="text" id="address" class="form-input mt-1 block w-full border-gray-300 rounded-md shadow-sm" value="{{ user.address }}" readonly>
+        </div>
+        <div class="text-center">
+            <a href="#" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition duration-300">Edit Profile</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

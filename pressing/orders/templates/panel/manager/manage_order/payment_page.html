@@ -1,0 +1,77 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Page</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .container {
+            margin-top: 50px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2 class="text-center">Payment Page</h2>
+    <p id="paymentDetails"></p>
+
+    <form id="paymentForm">
+        <div class="form-group">
+            <label for="mobileNumber">Pressing id</label>
+            <input type="text" class="form-control" id="pressing_id" name="pressing_id" disabled value="{{ pressing.id }}" required>
+            <label for="mobileNumber">Mobile Number</label>
+            <input type="text" class="form-control" id="mobileNumber" name="mobileNumber" placeholder="Enter your mobile number" value="{{ request.session.mobile_number }}" required>
+        </div>
+        
+        <p id="amountDetails"></p>
+        <button type="submit" id="payButton" class="btn btn-success btn-block">Pay Now</button>
+    </form>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+
+<script>
+    $(document).ready(function() {
+        let amount = 10 // Get amount from session
+        $('#amountDetails').text(`Your total amount is ${amount} FCFA`)
+
+        $('#paymentForm').on('submit', function(e) {
+            e.preventDefault();
+            const mobileNumber = $('#mobileNumber').val();
+            const pressing_id = $('#pressing_id').val()
+
+            // Add AJAX payment logic here
+            $.ajax({
+                url: '/payment_page/',  // Adjust the URL to your payment processing endpoint
+                method: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify({
+                    pressingCount: 1,  // Adjust as needed
+                    cartTotal: amount,
+                    phoneNumber: mobileNumber,
+                    pressing_id:pressing_id
+                }),
+                success: function(response) {
+                    if (response.success) {
+                        alert('Payment successful! Receipt ID: ' + response.receiptId);
+                        window.location.href = response.receiptUrl;  // Redirect to receipt
+                    } else {
+                        alert('Payment failed: ' + response.message);
+                    }
+                },
+                error: function(xhr, status, error) {
+                    alert('An error occurred: ' + error);
+                }
+            });
+        });
+    });
+</script>
+</body>
+</html>

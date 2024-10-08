@@ -1,0 +1,59 @@
+{% extends 'panel/base/base_admin.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container mx-auto px-4 py-8">
+    <header class="flex items-center justify-between mb-4">
+        <button class="menu-toggle focus:outline-none">
+            <i class="fas fa-bars"></i>
+        </button>
+        <h3 class="text-2xl font-bold">Payments Management</h3>
+    </header>
+
+    <div class="bg-white shadow-md rounded-lg p-6 mb-4">
+        <div class="mb-4">
+            <h5 class="text-xl font-semibold"><i class="fas fa-users"></i> All Payments</h5>
+        </div>
+        <div>
+            <table class="min-w-full divide-y divide-gray-200">
+                <thead>
+                    <tr class="bg-gray-100">
+                        <th class="px-4 py-2 text-left text-gray-600">ID</th>
+                        <th class="px-4 py-2 text-left text-gray-600">User</th>
+                        <th class="px-4 py-2 text-left text-gray-600">Role</th>
+                        <th class="px-4 py-2 text-left text-gray-600">Motive</th>
+                        <th class="px-4 py-2 text-left text-gray-600">Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for payment in payments %}
+                    <tr class="hover:bg-gray-50">
+                        <td class="px-4 py-2">{{ payment.id }}</td>
+                        <td class="px-4 py-2">{{ payment.user }}</td>
+                        <td class="px-4 py-2">{{ payment.role }}</td>
+                        <td class="px-4 py-2">{{ payment.motive }}</td>
+                        <td class="px-4 py-2">
+                            {% if payment.status %}
+                                <span class="text-green-600">PAID</span>
+                            {% else %}
+                                <span class="text-red-600">NOT PAID</span>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const menuToggle = document.querySelector('.menu-toggle');
+        menuToggle.addEventListener('click', function() {
+            // Toggle sidebar or nav functionality if needed
+            alert('Menu Toggle Clicked!'); // Placeholder for functionality
+        });
+    });
+</script>
+{% endblock %}

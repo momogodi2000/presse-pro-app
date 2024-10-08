@@ -1,0 +1,118 @@
+{% extends 'panel/base/base_home.html' %}
+
+{% load static %}
+
+{% block title %}Our Services | Pressing Wash Dress Service{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<header class="hero bg-cover bg-center text-white text-center py-32" style="background-image: url('{% static 'image/services_hero.jpg' %}');">
+    <h1 class="text-5xl font-bold">Our Services</h1>
+    <p class="mt-4 text-lg">Discover our wide range of services designed to meet all your pressing and washing needs.</p>
+</header>
+
+<!-- Service Offerings Section -->
+<div class="container mx-auto mt-10">
+    <h2 class="text-4xl font-bold text-center mb-8">Our Service Offerings</h2>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <!-- Service Card 1 -->
+        <div class="service-card rounded-lg shadow-lg overflow-hidden transition-transform transform hover:scale-105">
+            <img src="{% static 'image/pressing_service.jpeg' %}" alt="Pressing Service" class="w-full h-48 object-cover">
+            <div class="p-6">
+                <h5 class="text-2xl font-semibold">Dress Pressing</h5>
+                <p class="mt-2">Expert pressing to keep your dresses looking sharp and wrinkle-free for any occasion, ensuring you make a great impression.</p>
+                <a href="#" class="mt-4 inline-block bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700">Learn More</a>
+            </div>
+        </div>
+        <!-- Service Card 2 -->
+        <div class="service-card rounded-lg shadow-lg overflow-hidden transition-transform transform hover:scale-105">
+            <img src="{% static 'image/washing_service.jpeg' %}" alt="Washing Service" class="w-full h-48 object-cover">
+            <div class="p-6">
+                <h5 class="text-2xl font-semibold">Wash & Care</h5>
+                <p class="mt-2">Gentle washing methods using eco-friendly products to preserve the quality and longevity of your garments.</p>
+                <a href="#" class="mt-4 inline-block bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700">Learn More</a>
+            </div>
+        </div>
+        <!-- Service Card 3 -->
+        <div class="service-card rounded-lg shadow-lg overflow-hidden transition-transform transform hover:scale-105">
+            <img src="{% static 'image/pickup_service.jpeg' %}" alt="Pickup Service" class="w-full h-48 object-cover">
+            <div class="p-6">
+                <h5 class="text-2xl font-semibold">Pickup & Delivery</h5>
+                <p class="mt-2">Convenient pickup and delivery service right at your doorstep, making laundry day hassle-free.</p>
+                <a href="#" class="mt-4 inline-block bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700">Learn More</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Find Services Nearby Section -->
+<div class="container mx-auto mt-10">
+    <h2 class="text-4xl font-bold text-center mb-8">Find Pressing Services Nearby</h2>
+    <div class="map-container h-96 w-full bg-gray-200" id="map"></div>
+</div>
+
+<!-- Delivery Services Section -->
+<div class="container mx-auto mt-10">
+    <h2 class="text-4xl font-bold text-center mb-8">Our Delivery Services</h2>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="delivery-card rounded-lg shadow-lg p-6 bg-white">
+            <h5 class="text-2xl font-semibold">Delivery Service 1</h5>
+            <p class="mt-2">Responsible for picking up clothes from the client’s house, taking them to the pressing service, and delivering them back.</p>
+            <a href="#" class="mt-4 inline-block bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700">Learn More</a>
+        </div>
+        <div class="delivery-card rounded-lg shadow-lg p-6 bg-white">
+            <h5 class="text-2xl font-semibold">Delivery Service 2</h5>
+            <p class="mt-2">Reliable delivery service with punctual pickup and drop-off options for all your pressing needs.</p>
+            <a href="#" class="mt-4 inline-block bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700">Learn More</a>
+        </div>
+        <div class="delivery-card rounded-lg shadow-lg p-6 bg-white">
+            <h5 class="text-2xl font-semibold">Delivery Service 3</h5>
+            <p class="mt-2">Efficient delivery service ensuring timely transportation of garments to and from pressing services.</p>
+            <a href="#" class="mt-4 inline-block bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700">Learn More</a>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block extra_css %}
+<style>
+    /* Additional CSS for map styling if needed */
+    .map-container {
+        height: 400px;
+        width: 100%;
+        background-color: #ddd;
+    }
+</style>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/services.js' %}"></script>
+<!-- Google Maps API -->
+<script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places&callback=initMap" async defer></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Initialize map
+        window.initMap = function() {
+            const map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 12,
+                center: { lat: -34.397, lng: 150.644 } // Default location
+            });
+            
+            // Add markers for pressing services
+            const services = [
+                { lat: -34.397, lng: 150.644, name: "Pressing Service 1" },
+                { lat: -34.407, lng: 150.654, name: "Pressing Service 2" }
+            ];
+            
+            services.forEach(service => {
+                new google.maps.Marker({
+                    position: { lat: service.lat, lng: service.lng },
+                    map: map,
+                    title: service.name
+                });
+            });
+        }
+    });
+</script>
+{% endblock %}

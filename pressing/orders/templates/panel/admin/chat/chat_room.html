@@ -1,0 +1,38 @@
+{% extends "panel/base/base3.html" %}
+
+{% block title %}Chat Room - {{ room_name }}{% endblock %}
+
+{% block content %}
+<h2>Chat Room: {{ room_name }}</h2>
+<div class="chat-body" id="chatBody"></div>
+<input type="text" id="messageInput" class="form-control" placeholder="Type your message..." />
+<button id="sendMessage" class="btn btn-primary mt-2">Send</button>
+
+<script>
+    $(document).ready(function() {
+        const roomName = "{{ room_name }}";
+
+        function loadMessages() {
+            $.get(`/chat/get_messages/${roomName}/`, function(messages) {
+                $('#chatBody').empty();
+                messages.forEach(msg => {
+                    $('#chatBody').append(`<div class="message"><strong>${msg.user__username}:</strong> ${msg.content} <small>${new Date(msg.timestamp).toLocaleString()}</small></div>`);
+                });
+                $('#chatBody').scrollTop($('#chatBody')[0].scrollHeight);
+            });
+        }
+
+        $('#sendMessage').on('click', function() {
+            const messageContent = $('#messageInput').val();
+            if (messageContent.trim() === '') return;
+
+            $.post('/chat/send_message/', { room_name: roomName, content: messageContent }, function(response) {
+                $('#messageInput').val('');
+                loadMessages();
+            });
+        });
+
+        setInterval(loadMessages, 3000); // Refresh messages every 3 seconds
+    });
+</script>
+{% endblock %}

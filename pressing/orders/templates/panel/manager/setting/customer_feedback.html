@@ -1,0 +1,77 @@
+{% extends 'panel/base/base_manager.html' %}
+{% load static %}
+
+{% block title %}Customer Feedback{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1 class="mb-4">Customer Feedback</h1>
+
+    {% for contact in contacts %}
+        <div class="card feedback-card mb-3">
+            <div class="card-body">
+                <h5 class="card-title">{{ contact.email }}</h5>
+                <p class="card-text">{{ contact.description }}</p>
+                <p class="card-text"><small class="text-muted">{{ contact.date }}</small></p>
+                <form method="post" class="d-inline">
+                    {% csrf_token %}
+                    <input type="hidden" name="delete" value="{{ contact.id }}">
+                    <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                </form>
+                <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#replyModal{{ contact.id }}">Reply</button>
+            </div>
+        </div>
+
+        <!-- Reply Modal -->
+        <div class="modal fade" id="replyModal{{ contact.id }}" tabindex="-1" role="dialog" aria-labelledby="replyModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="replyModalLabel">Reply to {{ contact.email }}</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form method="post">
+                            {% csrf_token %}
+                            <input type="hidden" name="contact_id" value="{{ contact.id }}">
+                            {{ reply_form.as_p }}
+                            <button type="submit" name="reply" class="btn btn-success">Send Reply</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<script>
+// Get all reply modals
+const replyModals = document.querySelectorAll('.modal');
+
+// Add event listener to each reply modal
+replyModals.forEach((modal) => {
+    modal.addEventListener('show.bs.modal', (event) => {
+        // Get the button that triggered the modal
+        const button = event.relatedTarget;
+
+        // Get the contact ID from the button
+        const contactId = button.getAttribute('data-contact-id');
+
+        // Get the reply form
+        const replyForm = modal.querySelector('form');
+
+        // Set the contact ID in the reply form
+        replyForm.querySelector('input[name="contact_id"]').value = contactId;
+    });
+});
+</script>
+{% endblock %}

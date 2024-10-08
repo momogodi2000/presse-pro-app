@@ -1,0 +1,80 @@
+{% extends 'panel/base/base_home.html' %}
+{% load static %}
+
+{% block title %}Home | Pressing Wash{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero h-screen flex flex-col justify-center items-center text-white text-center bg-cover" style="background-image: url('{% static "image/images.jpeg" %}');">
+    <h1 class="text-5xl font-bold fadeIn">Effortless Dress Care</h1>
+    <p class="text-xl mt-4 fadeIn">Your trusted partner for pressing and washing dresses.</p>
+    <a href="{% url 'services' %}" class="mt-8 bg-blue-500 text-white px-6 py-3 rounded hover:bg-blue-700 fadeIn">Explore Our Services</a>
+</section>
+
+<!-- Why Choose Us Section -->
+<section class="py-16 bg-gray-100">
+    <div class="container mx-auto">
+        <h2 class="text-4xl font-bold text-center mb-12">Why Choose Us?</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="text-center p-6 bg-white shadow-md rounded-lg">
+                <h3 class="text-2xl font-bold mb-4">Quality Assurance</h3>
+                <p>We ensure the highest standards of cleanliness and care for your dresses with a dedicated team of professionals.</p>
+            </div>
+            <div class="text-center p-6 bg-white shadow-md rounded-lg">
+                <h3 class="text-2xl font-bold mb-4">Fast Service</h3>
+                <p>Enjoy quick turnaround times without compromising quality. Same-day service available upon request.</p>
+            </div>
+            <div class="text-center p-6 bg-white shadow-md rounded-lg">
+                <h3 class="text-2xl font-bold mb-4">Convenient App</h3>
+                <p>Order our services on-the-go with our user-friendly app. Schedule pickups and track your orders seamlessly.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Our Services Section -->
+<section class="py-16 bg-blue-100">
+    <div class="container mx-auto">
+        <h2 class="text-4xl font-bold text-center mb-12">Our Services</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="text-center p-6 bg-white shadow-md rounded-lg">
+                <img src="{% static 'image/pressing_service.jpeg' %}" class="w-full h-48 object-cover rounded-t-lg" alt="Pressing Service">
+                <h3 class="text-2xl font-bold mb-4">Dress Pressing</h3>
+                <p>Expert pressing to keep your dresses looking sharp. Ideal for special occasions or everyday wear.</p>
+                <a href="{% url 'services' %}#pressing" class="mt-4 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700">Learn More</a>
+            </div>
+            <div class="text-center p-6 bg-white shadow-md rounded-lg">
+                <img src="{% static 'image/washing_service.jpeg' %}" class="w-full h-48 object-cover rounded-t-lg" alt="Washing Service">
+                <h3 class="text-2xl font-bold mb-4">Wash & Care</h3>
+                <p>Gentle washing to preserve fabric quality. Suitable for delicate and everyday fabrics.</p>
+                <a href="{% url 'services' %}#washing" class="mt-4 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700">Learn More</a>
+            </div>
+            <div class="text-center p-6 bg-white shadow-md rounded-lg">
+                <img src="{% static 'image/pickup_service.jpeg' %}" class="w-full h-48 object-cover rounded-t-lg" alt="Pickup Service">
+                <h3 class="text-2xl font-bold mb-4">Pickup & Delivery</h3>
+                <p>Convenient pickup and delivery service. Flexible scheduling to fit your needs.</p>
+                <a href="{% url 'services' %}#pickup" class="mt-4 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700">Learn More</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Video Promotion Section -->
+<div class="container mx-auto mt-16">
+    <h2 class="text-4xl font-bold text-center mb-4">Watch Our Story</h2>
+    <div class="video-container">
+        <video id="promoVideo" class="mx-auto animate__animated animate__fadeIn" autoplay muted playsinline>
+            <source src="{% static 'assets/videos.mp4' %}" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+    </div>
+</div>
+
+<!-- Contact Section -->
+<div class="contact container mx-auto mt-16">
+    <h2 class="text-4xl font-bold text-center mb-4">Contact Us</h2>
+    <p class="text-center">For any inquiries or support, please contact us at:</p>
+    <p class="text-center">Email: <a href="mailto:contact@pressingwash.com" class="text-blue-500">contact@pressingwash.com</a> | Phone: <a href="tel:+23709876282972" class="text-blue-500">237 09876282972</a></p>
+    <p class="text-center">We are here to assist you from Monday to Saturday, 8 AM to 8 PM.</p>
+</div>
+{% endblock %}

@@ -1,0 +1,11 @@
+{% extends 'panel/base/clients_panel.html' %}
+{% load static %}
+{% block content %}
+<div class="p-5">
+    <a href="{% url 'pressing_booking'%}" class="btn btn-success">Go back</a>
+</div>
+    <div style="width: 100%;">
+        <div class="text-center text-success" style="font-size: 24px; font-weight: 800;">Map Details</div>
+        <img style="width: 100%; height: 75vh;" src="https://maps.geoapify.com/v1/staticmap?style=osm-bright-grey&width=600&height=400&center=lonlat:{{pressing.longitude}},{{pressing.latitude}}&zoom=14.8713&marker=lonlat:{{pressing.longitude}},{{pressing.latitude}};type:material;color:%231f63e6;size:x-large;icon:cloud;icontype:awesome;text:1;whitecircle:no|lonlat:-122.67129648458975,45.52309591904512;type:material;color:%231f63e6;size:x-large;icon:cloud;icontype:awesome;text:2;whitecircle:no|lonlat:-122.66444608451033,45.522964424673916;type:material;color:%231f63e6;size:x-large;icon:cloud;icontype:awesome;text:3;whitecircle:no&apiKey=aa5f7d1c48194551932ad37bbc9b0d83" alt="Map details" srcset="">
+    </div>
+{% endblock %}

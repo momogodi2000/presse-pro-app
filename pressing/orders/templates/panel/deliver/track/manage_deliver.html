@@ -1,0 +1,88 @@
+{% extends 'panel/base/base_deliver.html' %}
+{% load static %}
+
+{% block title %}Manage Deliver{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1 class="text-center">Manage Deliver</h1>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card fade-in">
+                <div class="card-header">
+                    <h5>Booking Details</h5>
+                </div>
+                <div class="card-body">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Service</th>
+                                <th>Payment Status</th>
+                                <th>Pressing Location</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for booking in service_books %}
+                                <tr>
+                                    <td>{{ booking.service }}</td>
+                                    <td>
+                                        {% if booking.payment.status %}
+                                            <span class="text-success">Paid</span>
+                                        {% else %}
+                                            <span class="text-danger">Pending</span>
+                                        {% endif %}
+                                    </td>
+                                    <td>
+                                        <button class="btn btn-link" onclick="showMap({{ booking.pressing.latitude }}, {{ booking.pressing.longitude }})">
+                                            View Location
+                                        </button>
+                                    </td>
+                                </tr>
+                            {% empty %}
+                                <tr>
+                                    <td colspan="3" class="text-center">No bookings available</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="map-container" id="mapContainer" style="display: none; margin-top: 20px;">
+        <div id="map" style="height: 400px; border-radius: 10px; overflow: hidden;"></div>
+    </div>
+</div>
+
+<!-- Bootstrap JS and dependencies -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places" async defer></script>
+
+<script>
+    let map;
+
+    function initMap(lat, lng) {
+        const location = { lat: lat, lng: lng };
+        map = new google.maps.Map(document.getElementById("map"), {
+            zoom: 15,
+            center: location
+        });
+
+        new google.maps.Marker({
+            position: location,
+            map: map
+        });
+    }
+
+    function showMap(lat, lng) {
+        document.getElementById("mapContainer").style.display = "block";
+        initMap(lat, lng);
+        window.scrollTo(0, document.body.scrollHeight); // Scroll to the map
+    }
+</script>
+
+{% endblock %}

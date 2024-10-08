@@ -1,0 +1,68 @@
+{% extends 'panel/base/base_admin.html' %}
+{% load static %}
+
+{% block title %}Add Pressing{% endblock %}
+
+{% block content %}
+<div class="container mx-auto my-8">
+    <h1 class="text-3xl font-bold text-center mb-6 animate__animated animate__fadeInUp">Add New Pressing</h1>
+    
+    <div class="text-blue-500">
+        {{ success }}
+    </div>
+    
+    <div class="bg-white shadow-md rounded-lg p-6 mt-6 animate__animated animate__fadeIn">
+        <h2 class="text-2xl font-semibold mb-4">Pressing Information</h2>
+        
+        <form method="post" enctype="multipart/form-data" class="space-y-4">
+            {% csrf_token %}
+            
+            <div>
+                <label class="block text-gray-700 text-sm font-bold mb-2">{{ profile_form.business_name.label }}</label>
+                {{ profile_form.business_name }}
+            </div>
+            
+            <div>
+                <label class="block text-gray-700 text-sm font-bold mb-2">{{ profile_form.location.label }}</label>
+                {{ profile_form.location }}
+            </div>
+            
+            <div>
+                <label class="block text-gray-700 text-sm font-bold mb-2">{{ profile_form.services_offered.label }}</label>
+                {{ profile_form.services_offered }}
+            </div>
+            
+            <div>
+                <label class="block text-gray-700 text-sm font-bold mb-2">{{ profile_form.pricing.label }}</label>
+                {{ profile_form.pricing }}
+            </div>
+            
+            <div>
+                <label class="block text-gray-700 text-sm font-bold mb-2">{{ profile_form.about_us.label }}</label>
+                {{ profile_form.about_us }}
+            </div>
+            
+            <div>
+                <label class="block text-gray-700 text-sm font-bold mb-2">{{ profile_form.pressing_count.label }}</label>
+                {{ profile_form.pressing_count }}
+            </div>
+            
+            <div>
+                <label class="block text-gray-700 text-sm font-bold mb-2">{{ photo_form.image.label }}</label>
+                {{ photo_form.image }}
+                <small class="text-gray-500">You can select multiple images.</small>
+            </div>
+            
+            <div>
+                <label class="block text-gray-700 text-sm font-bold mb-2">{{ video_form.video_file.label }}</label>
+                {{ video_form.video_file }}
+                <small class="text-gray-500">You can select multiple videos.</small>
+            </div>
+            
+            <button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded">
+                Add Pressing
+            </button>
+        </form>
+    </div>
+</div>
+{% endblock %}

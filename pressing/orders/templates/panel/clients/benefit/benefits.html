@@ -1,0 +1,75 @@
+{% extends 'panel/base/clients_panel.html' %}
+{% load static %}
+{% block content %}
+<header class="bg-blue-600 p-6 text-white text-center">
+    <h1 class="text-4xl font-bold">Discover the Benefits of PressPro</h1>
+    <p class="text-lg mt-2">Seamless pressing service experience at your fingertips</p>
+</header>
+
+<section class="py-12 px-4 lg:px-20">
+    <div class="max-w-7xl mx-auto text-center">
+        <h2 class="text-3xl font-extrabold text-gray-900">Why Choose PressPro?</h2>
+        <p class="mt-4 text-lg text-gray-600">PressPro offers unmatched convenience and quality to both customers and pressing service providers. Here’s why you should use our platform.</p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 mt-10">
+        <!-- Benefit 1 -->
+        <div class="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow">
+            <img class="w-16 h-16 mx-auto" src="https://img.icons8.com/color/96/search.png" alt="Search Icon">
+            <h3 class="mt-4 text-2xl font-semibold text-gray-900">Intelligent Search</h3>
+            <p class="mt-2 text-gray-600">Find nearby pressing services based on your location with advanced filters for pricing, ratings, and more.</p>
+        </div>
+
+        <!-- Benefit 2 -->
+        <div class="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow">
+            <img class="w-16 h-16 mx-auto" src="https://img.icons8.com/color/96/portfolio.png" alt="Portfolio Icon">
+            <h3 class="mt-4 text-2xl font-semibold text-gray-900">Detailed Business Profiles</h3>
+            <p class="mt-2 text-gray-600">Get detailed insights on pressing services with images, reviews, service descriptions, and turnaround times.</p>
+        </div>
+
+        <!-- Benefit 3 -->
+        <div class="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow">
+            <img class="w-16 h-16 mx-auto" src="https://img.icons8.com/color/96/credit-card.png" alt="Payment Icon">
+            <h3 class="mt-4 text-2xl font-semibold text-gray-900">Easy Booking & Secure Payments</h3>
+            <p class="mt-2 text-gray-600">Book appointments online and pay securely using your credit card or mobile wallets.</p>
+        </div>
+
+        <!-- Benefit 4 -->
+        <div class="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow">
+            <img class="w-16 h-16 mx-auto" src="https://img.icons8.com/color/96/delivery.png" alt="Delivery Icon">
+            <h3 class="mt-4 text-2xl font-semibold text-gray-900">Convenient Delivery Service</h3>
+            <p class="mt-2 text-gray-600">Get your garments picked up and delivered at your doorstep with transparent pricing and reliable delivery partners.</p>
+        </div>
+
+        <!-- Benefit 5 -->
+        <div class="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow">
+            <img class="w-16 h-16 mx-auto" src="https://img.icons8.com/color/96/review.png" alt="Review Icon">
+            <h3 class="mt-4 text-2xl font-semibold text-gray-900">Customer Reviews & Ratings</h3>
+            <p class="mt-2 text-gray-600">Make informed decisions by reading reviews and ratings from verified customers.</p>
+        </div>
+
+        <!-- Benefit 6 -->
+        <div class="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow">
+            <img class="w-16 h-16 mx-auto" src="https://img.icons8.com/color/96/discount.png" alt="Discount Icon">
+            <h3 class="mt-4 text-2xl font-semibold text-gray-900">Exclusive Deals & Loyalty Rewards</h3>
+            <p class="mt-2 text-gray-600">Enjoy loyalty rewards and discounts for repeat orders and promotions from top pressing businesses.</p>
+        </div>
+    </div>
+</section>
+
+<!-- Call to Action -->
+<section class="bg-blue-600 py-10">
+    <div class="max-w-4xl mx-auto text-center text-white">
+        <h2 class="text-3xl font-bold">Ready to Experience PressPro?</h2>
+        <p class="mt-4 text-lg">Download our Mobile app and start enjoying seamless pressing services right from your phone!</p>
+        <a href="#" class="mt-6 inline-block px-8 py-3 bg-white text-blue-600 font-semibold rounded-lg shadow-lg hover:bg-gray-100 transition-colors">
+            Get Started
+        </a>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer class="bg-gray-800 text-gray-300 py-6 text-center">
+    <p>&copy; 2024 PressPro. All Rights Reserved.</p>
+</footer>
+{% endblock %}

@@ -1,0 +1,23 @@
+{% extends 'panel/base/base2.html' %}
+{% load static %}
+{% block content %}
+<div class="p-4">
+        <h1 class="text-center">Fill in the information to pay</h1>
+        <form method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="">Pressing ID</label>
+                <input disabled class="form-control" type="text" value="{{selected.id}}">
+            </div>
+            <div class="form-group">
+                <label for="">Pressing Name</label>
+                <input disabled class="form-control" type="text" value="{{selected.business_name}}">
+            </div>
+            <div class="form-group">
+                <label for="">Tel</label>
+                <input name="tel" class="form-control" type="text">
+            </div>
+            <button class="btn btn-primary" type="submit">Pay</button>
+        </form>
+</div>
+{% endblock %}

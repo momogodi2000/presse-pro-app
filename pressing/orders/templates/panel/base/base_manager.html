@@ -1,0 +1,314 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Base Manager{% endblock %}</title>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    <!-- Font Awesome CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
+    <!-- Animation CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .dashboard {
+            display: flex;
+            flex-wrap: nowrap;
+            min-height: 100vh;
+        }
+
+        .dashboard-nav {
+            width: 250px;
+            background-color: #343a40;
+            color: white;
+            padding: 20px;
+            position: fixed;
+            height: 100%;
+            overflow-y: auto;
+            transition: transform 0.3s ease;
+        }
+
+        .dashboard-nav.closed {
+            transform: translateX(-100%);
+        }
+
+        .brand-logo {
+            display: flex;
+            align-items: center;
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: white;
+            text-decoration: none;
+        }
+
+        .brand-logo i {
+            margin-right: 10px;
+        }
+
+        .profile-avatar img {
+            width: 100%;
+            border-radius: 50%;
+            margin-bottom: 20px;
+        }
+
+        .dashboard-nav-list {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .dashboard-nav-item {
+            display: block;
+            padding: 10px;
+            color: white;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+
+        .dashboard-nav-item:hover,
+        .dashboard-nav-item.active {
+            background-color: #495057;
+        }
+
+        .dashboard-app {
+            margin-left: 250px;
+            flex-grow: 1;
+            padding: 20px;
+            transition: margin-left 0.3s ease;
+        }
+
+        .dashboard-app.shifted {
+            margin-left: 0;
+        }
+
+        .dashboard-toolbar {
+            background-color: #495057;
+            padding: 15px;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .dashboard-toolbar .form-inline {
+            flex-grow: 1;
+        }
+
+        .dashboard-content {
+            margin-top: 20px;
+        }
+
+        footer {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #343a40;
+            color: white;
+        }
+
+        .btn-outline-light {
+            color: white;
+            border-color: white;
+        }
+
+        .btn-outline-light:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        @media (max-width: 768px) {
+            .dashboard-nav {
+                width: 100%;
+                position: absolute;
+                z-index: 1000;
+                transform: translateX(-100%);
+            }
+            .dashboard-nav.closed {
+                transform: translateX(0);
+            }
+            .dashboard-app {
+                margin-left: 0;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .dashboard-nav {
+                padding: 10px;
+            }
+        }
+
+        /* Dark mode styles */
+        body.dark-mode {
+            background-color: #343a40;
+            color: white;
+        }
+        body.dark-mode .dashboard-nav {
+            background-color: #212529;
+        }
+        body.dark-mode .dashboard-nav a {
+            color: white;
+        }
+        body.dark-mode .dashboard-toolbar, .btn-outline-light {
+            background-color: #212529;
+            border-color: #495057;
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard">
+        <div class="dashboard-nav" id="sidebar">
+            <header>
+                <a href="{% url 'pressing_manager' %}" class="brand-logo">
+                    <i class="fas fa-tshirt"></i> 
+                    <span>PressPro Manager Dashboard</span>
+                </a>
+                <div class="profile-avatar">
+                    {% if user.profile_picture %}
+                        <img src="{{ user.profile_picture.url }}" alt="{{ user.username }}'s Avatar" class="img-fluid">
+                    {% else %}
+                        <img src="{% static 'image/auth.jpeg' %}" alt="Default Avatar" class="img-fluid">
+                    {% endif %}
+                </div>
+            </header>
+            <nav class="dashboard-nav-list">
+                <a href="{% url 'pressing_manager' %}" class="dashboard-nav-item active"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+                <a href="{% url 'apply_portfolio' %}" class="dashboard-nav-item"><i class="fas fa-users-cog"></i> Apply Portfolio</a>
+                <a href="{% url 'chat' %}" class="dashboard-nav-item"><i class="fas fa-comments"></i> Chat with Delivery Team</a>
+                <a href="{% url 'view_portfolio' user_id=request.user.id %}" class="dashboard-nav-item"><i class="fas fa-tasks"></i> View Portfolio</a>
+                <a href="{% url 'predefined_portfolios' %}" class="dashboard-nav-item"><i class="fas fa-tasks"></i> Predefined Portfolios</a>
+                <a href="{% url 'track_deliveries' %}" class="dashboard-nav-item"><i class="fas fa-map-marked-alt"></i> Track Deliveries</a>
+                <a href="{% url 'customer_feedback' %}" class="dashboard-nav-item"><i class="fas fa-thumbs-up"></i> Customer Feedback</a>
+                <a href="#" class="dashboard-nav-item"><i class="fas fa-bell"></i> Notifications</a>
+                <a href="{% url 'setting' %}" class="dashboard-nav-item"><i class="fas fa-cogs"></i> Settings</a>
+                <a href="{% url 'about_us' %}" class="dashboard-nav-item"><i class="fas fa-info-circle"></i> About Us</a>
+                <a href="{% url 'logout' %}" class="btn btn-primary logout-btn">Logout</a>
+            </nav>
+        </div>
+        <main class="dashboard-app">
+            <header class="dashboard-toolbar">
+                <a href="#!" class="menu-toggle" id="menu-toggle"><i class="fas fa-bars"></i></a>
+                
+                <!-- Search Bar -->
+                <form class="form-inline my-2 my-lg-0 ml-auto">
+                    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Search</button>
+                </form>
+            
+                <!-- Language and Theme Icons -->
+                <div class="ml-3 d-flex align-items-center">
+                    <!-- Language Switcher -->
+                    <div class="dropdown">
+                        <button class="btn btn-outline-light dropdown-toggle" type="button" id="languageDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fas fa-globe"></i>
+                        </button>
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="languageDropdown">
+                            <a class="dropdown-item" href="#" id="lang-en">English</a>
+                            <a class="dropdown-item" href="#" id="lang-fr">Français</a>
+                        </div>
+                    </div>
+            
+                    <!-- Theme Switcher -->
+                    <button class="btn btn-outline-light ml-3" id="theme-toggle">
+                        <i class="fas fa-moon" id="theme-icon"></i>
+                    </button>
+                </div>
+            </header>
+            
+            <div class="dashboard-content" id="content">
+                {% block content %}
+                {% endblock %}
+            </div>
+        </main>
+    </div>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    
+    <script>
+        // Toggle sidebar visibility
+        const menuToggle = document.getElementById('menu-toggle');
+        const sidebar = document.getElementById('sidebar');
+        const content = document.getElementById('content');
+
+        menuToggle.addEventListener('click', function() {
+            sidebar.classList.toggle('closed');
+            content.classList.toggle('shifted');
+        });
+
+        // Language change logic
+        document.getElementById('lang-en').addEventListener('click', function() {
+            setLanguage('en');
+        });
+
+        document.getElementById('lang-fr').addEventListener('click', function() {
+            setLanguage('fr');
+        });
+
+        function setLanguage(lang) {
+            // Update the document language attribute
+            document.documentElement.setAttribute('lang', lang);
+
+            // Update text based on the selected language
+            const translations = {
+                en: {
+                    dashboard: 'PressPro Manager Dashboard',
+                    dashboardItems: [
+                        'Dashboard', 'Apply Portfolio', 'Chat with Delivery Team',
+                        'View Portfolio', 'Predefined Portfolios', 'Track Deliveries',
+                        'Customer Feedback', 'Notifications', 'Settings', 'About Us', 'Logout'
+                    ],
+                    welcome: 'Welcome to your dashboard!',
+                    management: 'Here you can manage your profile, check deliveries, and track orders.'
+                },
+                fr: {
+                    dashboard: 'Tableau de bord Manager PressPro',
+                    dashboardItems: [
+                        'Tableau de bord', 'Appliquer le portfolio', 'Discuter avec l\'équipe de livraison',
+                        'Voir le portfolio', 'Portfolios prédéfinis', 'Suivre les livraisons',
+                        'Commentaires des clients', 'Notifications', 'Paramètres', 'À propos', 'Déconnexion'
+                    ],
+                    welcome: 'Bienvenue dans votre tableau de bord !',
+                    management: 'Ici, vous pouvez gérer votre profil, vérifier les livraisons et suivre les commandes.'
+                }
+            };
+
+            // Set the new title and content
+            document.querySelector('.brand-logo span').textContent = translations[lang].dashboard;
+            const navItems = document.querySelectorAll('.dashboard-nav-item');
+            navItems.forEach((item, index) => {
+                item.textContent = translations[lang].dashboardItems[index];
+            });
+
+            document.querySelector('.dashboard-content h1').textContent = translations[lang].welcome;
+            document.querySelector('.dashboard-content p').textContent = translations[lang].management;
+        }
+
+        // Theme change logic
+        const themeToggle = document.getElementById('theme-toggle');
+        const themeIcon = document.getElementById('theme-icon');
+        let darkMode = false;
+
+        themeToggle.addEventListener('click', function() {
+            darkMode = !darkMode;
+            if (darkMode) {
+                document.body.classList.add('dark-mode');
+                themeIcon.classList.replace('fa-moon', 'fa-sun');
+            } else {
+                document.body.classList.remove('dark-mode');
+                themeIcon.classList.replace('fa-sun', 'fa-moon');
+            }
+        });
+    </script>
+</body>
+</html>

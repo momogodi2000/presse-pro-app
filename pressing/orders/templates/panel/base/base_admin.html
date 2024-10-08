@@ -1,0 +1,155 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Admin Panel - PressPro{% endblock %}</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Font Awesome CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Custom CSS -->
+    <style>
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        .animate-fadeIn {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        @keyframes slideIn {
+            from { transform: translateX(-100%); }
+            to { transform: translateX(0); }
+        }
+        .animate-slideIn {
+            animation: slideIn 0.3s ease-in-out;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-white transition-colors duration-300">
+
+<div class="flex h-screen">
+    <!-- Sidebar -->
+    <aside id="sidebar" class="w-64 bg-gray-800 dark:bg-gray-900 text-white transition-transform duration-300 ease-in-out transform -translate-x-full sm:translate-x-0">
+        <div class="p-5">
+            <a href="{% url 'admin_panel' %}" class="flex items-center space-x-2 text-yellow-400">
+                <i class="fas fa-tshirt text-2xl"></i>
+                <span class="text-lg font-semibold">PressPro Admin</span>
+            </a>
+            <div class="mt-5 flex justify-center">
+                <div class="w-20 h-20 rounded-full overflow-hidden">
+                    {% if user.profile_picture %}
+                        <img src="{{ user.profile_picture.url }}" alt="{{ user.username }}'s Avatar" class="w-full h-full object-cover">
+                    {% else %}
+                        <img src="{% static 'image/auth.jpeg' %}" alt="Default Avatar" class="w-full h-full object-cover">
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        <nav class="mt-5">
+            <a href="{% url 'admin_panel' %}" class="block py-3 px-4 hover:bg-gray-700 transition duration-200"><i class="fas fa-tachometer-alt mr-2"></i> Dashboard</a>
+            <a href="{% url 'user_management' %}" class="block py-3 px-4 hover:bg-gray-700 transition duration-200"><i class="fas fa-user-check mr-2"></i> User Management</a>
+            <a href="{% url 'pressing_list' %}" class="block py-3 px-4 hover:bg-gray-700 transition duration-200"><i class="fas fa-tools mr-2"></i> Pressing Management</a>
+            <a href="" class="block py-3 px-4 hover:bg-gray-700 transition duration-200">
+                <i class="fas fa-briefcase mr-2"></i> View Pressing Portfolio
+            </a>
+            <a href="{% url 'manage_publicity' %}" class="block py-3 px-4 hover:bg-gray-700 transition duration-200">
+                <i class="fas fa-bullhorn mr-2"></i> Manage Portfolio Publicity
+            </a>
+            <a href="{% url 'analytics' %}" class="block py-3 px-4 hover:bg-gray-700 transition duration-200"><i class="fas fa-chart-bar mr-2"></i> Analytics & Reporting</a>
+            <a href="#" class="block py-3 px-4 hover:bg-gray-700 transition duration-200"><i class="fas fa-headset mr-2"></i> Chat with Deliver</a>
+            <a href="{% url 'view_payments' %}" class="block py-3 px-4 hover:bg-gray-700 transition duration-200"><i class="fas fa-wallet mr-2"></i> Payment Management</a>
+            <a href="{% url 'pending' %}" class="block py-3 px-4 hover:bg-gray-700 transition duration-200"><i class="fas fa-bell mr-2"></i> Notifications</a>
+            <a href="{% url 'deliver_statistics' %}" class="block py-3 px-4 hover:bg-gray-700 transition duration-200"><i class="fas fa-truck mr-2"></i> Deliver services</a>
+        </nav>
+        <div class="mt-uto p-4">
+            <a href="{% url 'logout' %}" class="block w-full py-2 px-4 bg-red-600 hover:bg-red-700 text-white text-center rounded transition duration-200">Logout</a>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="flex-1 overflow-x-hidden overflow-y-auto">
+        <header class="bg-white dark:bg-gray-800 shadow-md">
+            <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+                <button id="menu-toggle" class="text-gray-500 hover:text-gray-600 focus:outline-none focus:text-gray-600 sm:hidden">
+                    <i class="fas fa-bars text-2xl"></i>
+                </button>
+                <div class="flex items-center space-x-4">
+                    <button class="text-gray-500 hover:text-gray-600 focus:outline-none">
+                        <i class="fas fa-search text-xl"></i>
+                    </button>
+                    <button id="language-toggle" class="text-gray-500 hover:text-gray-600 focus:outline-none">
+                        <i class="fas fa-language text-xl"></i>
+                    </button>
+                    <button id="theme-toggle" class="text-gray-500 hover:text-gray-600 focus:outline-none">
+                        <i class="fas fa-adjust text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </header>
+        <div class="container mx-auto px-4 py-8 animate-fadeIn">
+            {% block content %}
+            {% endblock %}
+        </div>
+    </main>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const sidebar = document.getElementById('sidebar');
+        const menuToggle = document.getElementById('menu-toggle');
+        const themeToggle = document.getElementById('theme-toggle');
+        const languageToggle = document.getElementById('language-toggle');
+
+        menuToggle.addEventListener('click', () => {
+            sidebar.classList.toggle('-translate-x-full');
+            sidebar.classList.toggle('animate-slideIn');
+        });
+
+        themeToggle.addEventListener('click', () => {
+            document.body.classList.toggle('dark');
+            if (document.body.classList.contains('dark')) {
+                localStorage.setItem('theme', 'dark');
+            } else {
+                localStorage.setItem('theme', 'light');
+            }
+        });
+
+        languageToggle.addEventListener('click', () => {
+            const currentLang = document.documentElement.lang;
+            if (currentLang === 'en') {
+                document.documentElement.lang = 'fr';
+                updateToFrench();
+            } else {
+                document.documentElement.lang = 'en';
+                updateToEnglish();
+            }
+        });
+
+        // Check for saved theme preference
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme === 'dark') {
+            document.body.classList.add('dark');
+        }
+
+        function updateToFrench() {
+            // Update text content to French
+            // This is a simplified example. In a real application, you would use a proper i18n solution.
+            document.querySelector('.text-lg.font-semibold').textContent = 'PressPro Admin';
+            // Update other elements...
+        }
+
+        function updateToEnglish() {
+            // Update text content to English
+            document.querySelector('.text-lg.font-semibold').textContent = 'PressPro Admin';
+            // Update other elements...
+        }
+    });
+</script>
+
+</body>
+</html>

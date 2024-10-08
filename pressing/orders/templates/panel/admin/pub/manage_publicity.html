@@ -1,0 +1,111 @@
+{% extends 'panel/base/base_admin.html' %}
+
+{% block content %}
+<div class="container mx-auto px-4 py-8">
+    <h1 class="text-3xl font-bold mb-8">Manage Portfolio Publicity</h1>
+    
+    <div class="bg-white shadow-md rounded-lg p-6 mb-8">
+        <h2 class="text-xl font-semibold mb-4">Select Pressing Profiles</h2>
+        <form method="POST">
+            {% csrf_token %}
+            <div class="mb-4">
+                <label class="block mb-2">
+                    <input type="radio" name="profile_selection" value="all" class="mr-2" checked>
+                    All Pressing Profiles
+                </label>
+                <label class="block mb-2">
+                    <input type="radio" name="profile_selection" value="specific" class="mr-2">
+                    Specific Pressing Profile
+                </label>
+            </div>
+            <div id="specific_profile" class="hidden mb-4">
+                <select name="specific_profile" class="w-full p-2 border rounded">
+                    <option value="">Select a Pressing Profile</option>
+                    {% for profile in pressing_profiles %}
+                    <option value="{{ profile.id }}">{{ profile.business_name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="mb-4">
+                <label class="block mb-2">Publicity Message</label>
+                <textarea name="message" class="w-full p-2 border rounded" rows="4" required></textarea>
+            </div>
+            <div class="mb-4">
+                <label class="block mb-2">Boost Duration</label>
+                <select name="duration" class="w-full p-2 border rounded">
+                    <option value="1">1 Month</option>
+                    <option value="3">3 Months</option>
+                    <option value="6">6 Months</option>
+                    <option value="12">1 Year</option>
+                </select>
+            </div>
+            <div class="mb-4">
+                <h3 class="font-semibold mb-2">Select Platforms</h3>
+                <div class="flex flex-wrap">
+                    <label class="mr-4 mb-2">
+                        <input type="checkbox" name="platform" value="facebook" class="mr-1">
+                        Facebook
+                    </label>
+                    <label class="mr-4 mb-2">
+                        <input type="checkbox" name="platform" value="instagram" class="mr-1">
+                        Instagram
+                    </label>
+                    <label class="mr-4 mb-2">
+                        <input type="checkbox" name="platform" value="tiktok" class="mr-1">
+                        TikTok
+                    </label>
+                    <label class="mr-4 mb-2">
+                        <input type="checkbox" name="platform" value="youtube" class="mr-1">
+                        YouTube
+                    </label>
+                    <label class="mr-4 mb-2">
+                        <input type="checkbox" name="platform" value="intra" class="mr-1">
+                        Intra-network
+                    </label>
+                </div>
+            </div>
+            <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
+                Create Publicity
+            </button>
+        </form>
+    </div>
+
+    <div class="bg-white shadow-md rounded-lg p-6">
+        <h2 class="text-xl font-semibold mb-4">Recent Publicity Campaigns</h2>
+        <table class="w-full">
+            <thead>
+                <tr class="bg-gray-200">
+                    <th class="p-2 text-left">Profile</th>
+                    <th class="p-2 text-left">Message</th>
+                    <th class="p-2 text-left">Platforms</th>
+                    <th class="p-2 text-left">Duration</th>
+                    <th class="p-2 text-left">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for campaign in recent_campaigns %}
+                <tr>
+                    <td class="p-2">{{ campaign.pressing_profile.business_name }}</td>
+                    <td class="p-2">{{ campaign.message }}</td>
+                    <td class="p-2">{{ campaign.platforms }}</td>
+                    <td class="p-2">{{ campaign.duration }} Month(s)</td>
+                    <td class="p-2">
+                        <button class="text-blue-500 hover:text-blue-700 mr-2">Edit</button>
+                        <button class="text-red-500 hover:text-red-700">Delete</button>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script>
+    document.querySelectorAll('input[name="profile_selection"]').forEach((elem) => {
+        elem.addEventListener("change", function(event) {
+            var specificProfile = document.getElementById("specific_profile");
+            specificProfile.style.display = event.target.value === "specific" ? "block" : "none";
+        });
+    });
+</script>
+{% endblock %}

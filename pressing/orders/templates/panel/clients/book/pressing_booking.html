@@ -1,0 +1,42 @@
+{% extends 'panel/base/clients_panel.html' %}
+{% load static %}
+{% block content %}
+<div class="p-5">
+    <a href="{% url 'pressing_search' %}" class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition duration-300">Go back</a>
+</div>
+
+{% if errors %}
+    <div class="text-red-500 mb-4">{{ errors }}</div>
+{% else %}
+    {% if pressings|length > 0 %}
+        <div class="overflow-x-auto">
+            <table class="min-w-full bg-white border border-gray-300">
+                <thead>
+                    <tr>
+                        <th class="border-b px-4 py-2 text-left">ID</th>
+                        <th class="border-b px-4 py-2 text-left">Name</th>
+                        <th class="border-b px-4 py-2 text-left">Link to map</th>
+                        <th class="border-b px-4 py-2 text-left">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for press in pressings %}
+                        <tr class="hover:bg-gray-100 border-b">
+                            <td class="px-4 py-2">{{ press.id }}</td>
+                            <td class="px-4 py-2">{{ press.business_name }}</td>
+                            <td class="px-4 py-2">
+                                <a class="bg-green-500 text-white px-3 py-1 rounded hover:bg-green-600 transition duration-300" target="_blank" href="{% url 'render_map_details' press.id %}">Click</a>
+                            </td>
+                            <td class="px-4 py-2">
+                                <a class="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600 transition duration-300" href="{% url 'pressing_appointment' press.id %}">Book</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% else %}
+        <div class="text-red-500 mt-4">No pressing was found at this location!</div>
+    {% endif %}
+{% endif %}
+{% endblock %}

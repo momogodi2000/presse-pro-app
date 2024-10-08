@@ -1,0 +1,38 @@
+{% extends 'panel/base/base_admin.html' %}
+{% load static %}
+
+{% block title %}Pending Pressing Profiles{% endblock %}
+
+{% block content %}
+<div class="container mx-auto p-6">
+    <header class="mb-6">
+        <h3 class="text-3xl font-bold">Pending Pressing Profiles</h3>
+    </header>
+    
+    <section class="mt-5">
+        <h2 class="text-2xl font-semibold mb-4">Pending Pressing Profiles</h2>
+        {% if pending_profiles %}
+            <ul class="space-y-4">
+                {% for profile in pending_profiles %}
+                    <li class="bg-white shadow-md rounded-lg p-4 border border-gray-200">
+                        <strong class="text-xl">{{ profile.business_name }}</strong><br>
+                        <span class="text-gray-600">Location: {{ profile.location }}</span><br>
+                        <span class="text-gray-600">Services Offered: {{ profile.services_offered }}</span><br>
+                        <span class="text-gray-600">Pricing: {{ profile.pricing }}</span><br>
+                        <span class="text-gray-600">Paid: {{ profile.paid }}</span>
+
+                        <form method="post" class="mt-4 flex space-x-2">
+                            {% csrf_token %}
+                            <input type="hidden" name="profile_id" value="{{ profile.id }}">
+                            <button type="submit" name="action" value="accepted" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-500 transition duration-300">Approve</button>
+                            <button type="submit" name="action" value="rejected" class="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-500 transition duration-300">Reject</button>
+                        </form>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p class="text-gray-700">No pending profiles for approval.</p>
+        {% endif %}
+    </section>
+</div>
+{% endblock %}

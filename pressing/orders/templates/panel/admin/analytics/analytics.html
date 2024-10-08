@@ -1,0 +1,76 @@
+{% extends 'panel/base/base_admin.html' %}
+{% load static %}
+
+{% block title %}Analytics & Reporting{% endblock %}
+
+{% block content %}
+<div class="container mx-auto p-6">
+    <header class="mb-6">
+        <h3 class="text-3xl font-bold">Analytics & Reporting</h3>
+    </header>
+
+    <div class="mt-5">
+        <h2 class="text-2xl font-semibold mb-4">Analytics & Reporting</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            <div class="bg-blue-600 text-white rounded-lg shadow-md p-4 mb-4">
+                <div class="font-semibold text-lg">Users</div>
+                <div class="text-2xl">{{ user_count }}</div>
+            </div>
+            <div class="bg-green-600 text-white rounded-lg shadow-md p-4 mb-4">
+                <div class="font-semibold text-lg">Contacts</div>
+                <div class="text-2xl">{{ contact_count }}</div>
+            </div>
+            <div class="bg-teal-600 text-white rounded-lg shadow-md p-4 mb-4">
+                <div class="font-semibold text-lg">Pressing Profiles</div>
+                <div class="text-2xl">{{ pressing_profile_count }}</div>
+            </div>
+            <div class="bg-yellow-500 text-white rounded-lg shadow-md p-4 mb-4">
+                <div class="font-semibold text-lg">Receipts</div>
+                <div class="text-2xl">{{ receipt_count }}</div>
+            </div>
+            <div class="bg-red-600 text-white rounded-lg shadow-md p-4 mb-4">
+                <div class="font-semibold text-lg">Chat Messages</div>
+                <div class="text-2xl">{{ chat_message_count }}</div>
+            </div>
+        </div>
+
+        <h3 class="text-xl font-semibold mt-8 mb-4">Chat Messages Over Time</h3>
+        <canvas id="chatMessagesChart" class="w-full h-72"></canvas>
+    </div>
+</div>
+
+<!-- Scripts -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
+<script>
+    const ctx = document.getElementById('chatMessagesChart').getContext('2d');
+    const chatMessagesChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: ['January', 'February', 'March', 'April', 'May', 'June'], // Replace with actual months
+            datasets: [{
+                label: 'Chat Messages',
+                data: [12, 19, 3, 5, 2, 3], // Replace with actual data
+                borderColor: 'rgba(75, 192, 192, 1)',
+                borderWidth: 2,
+                fill: false,
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+</script>
+
+{% block styles %}
+<style>
+    body {
+        background-color: #f9f9f9;
+    }
+</style>
+{% endblock %}
+{% endblock %}

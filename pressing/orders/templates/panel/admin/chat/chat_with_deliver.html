@@ -1,0 +1,159 @@
+{% extends 'panel/base/base_admin.html' %}
+{% load static %}
+
+{% block title %}Chat with Deliver{% endblock %}
+
+{% block content %}
+<div class="chat-container">
+    <div class="chat-box">
+        <div class="chat-header">
+            <i class="fas fa-headset"></i> Chat with Deliver
+        </div>
+        <div class="chat-messages" id="chat-messages">
+            {% for message in messages %}
+                <div class="message {% if message.sender == user %}admin{% else %}deliver{% endif %}">
+                    <div class="message-content">
+                        <strong>{{ message.sender.username }}:</strong> {{ message.content }}
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        <div class="chat-footer">
+            <form id="chat-form" method="POST">
+                {% csrf_token %}
+                <div class="form-group">
+                    <select name="receiver" class="form-control user-select" required>
+                        <option value="" disabled selected>Select Deliver</option>
+                        {% for deliver in deliver_users %}
+                            <option value="{{ deliver.id }}">{{ deliver.username }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="form-group">
+                    <input type="text" name="message" class="form-control" placeholder="Enter your message..." required>
+                    <button type="submit" class="btn btn-primary send-btn">Send</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Custom Styles -->
+<style>
+    body {
+        font-family: 'Arial', sans-serif;
+        background-color: #f8f9fa;
+    }
+
+    .chat-container {
+        display: flex;
+        flex-direction: column;
+        height: 100vh;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .chat-box {
+        width: 100%;
+        max-width: 900px;
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .chat-header {
+        padding: 10px;
+        background-color: #343a40;
+        color: #fff;
+        text-align: center;
+        font-size: 1.2rem;
+        font-weight: bold;
+    }
+
+    .chat-messages {
+        flex-grow: 1;
+        padding: 20px;
+        overflow-y: auto;
+        max-height: 400px;
+    }
+
+    .message {
+        margin-bottom: 10px;
+        padding: 10px;
+        border-radius: 5px;
+        display: flex;
+        align-items: center;
+    }
+
+    .message.admin {
+        background-color: #d4edda;
+        justify-content: flex-start;
+    }
+
+    .message.deliver {
+        background-color: #f8d7da;
+        justify-content: flex-end;
+    }
+
+    .message-content {
+        max-width: 70%;
+    }
+
+    .chat-footer {
+        padding: 10px;
+        border-top: 1px solid #ccc;
+        background-color: #f1f1f1;
+    }
+
+    .form-control {
+        width: 80%;
+        display: inline-block;
+    }
+
+    .send-btn {
+        width: 15%;
+    }
+
+    .user-select {
+        margin-bottom: 10px;
+    }
+
+    @media (max-width: 768px) {
+        .form-control {
+            width: 70%;
+        }
+        .send-btn {
+            width: 25%;
+        }
+    }
+</style>
+
+<!-- Bootstrap JS and dependencies -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<script>
+    document.getElementById('chat-form').onsubmit = function(e) {
+        e.preventDefault();
+        const formData = new FormData(this);
+        
+        fetch("{% url 'chat_with_deliver' %}", {
+            method: 'POST',
+            body: formData,
+            headers: {
+                'X-CSRFToken': formData.get('csrfmiddlewaretoken'),
+            }
+        }).then(response => response.json()).then(data => {
+            // Optional: Handle success or reload messages
+            location.reload(); // Reload the chat after sending a message
+        }).catch(error => console.error('Error:', error));
+    };
+
+    // Auto-scroll to the bottom of chat messages
+    document.getElementById('chat-messages').scrollTop = document.getElementById('chat-messages').scrollHeight;
+</script>
+{% endblock %}

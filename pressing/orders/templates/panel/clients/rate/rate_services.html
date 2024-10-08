@@ -1,0 +1,68 @@
+{% extends 'panel/base/clients_panel.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container mx-auto px-4 py-8">
+    <h1 class="text-3xl font-bold mb-6">Rate Delivery Users</h1>
+
+    <div class="bg-white shadow-md rounded-lg p-6 mb-8">
+        <h2 class="text-xl font-semibold mb-4">Available Delivery Users</h2>
+        <form method="POST" class="mb-6">
+            {% csrf_token %}
+            <div class="mb-4">
+                <label for="delivery_user" class="block mb-2">Select Delivery User:</label>
+                <select name="delivery_user" id="delivery_user" class="w-full p-2 border rounded" required>
+                    <option value="">Choose a delivery user</option>
+                    {% for user in delivery_users %}
+                    <option value="{{ user.id }}">{{ user.username }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="mb-4">
+                <label for="rating" class="block mb-2">Rating:</label>
+                <select name="rating" id="rating" class="w-full p-2 border rounded" required>
+                    <option value="">Rate the service</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                </select>
+            </div>
+            <div class="mb-4">
+                <label for="comment" class="block mb-2">Comment:</label>
+                <textarea name="comment" id="comment" class="w-full p-2 border rounded" rows="4"></textarea>
+            </div>
+            <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
+                Submit Rating
+            </button>
+        </form>
+
+        <h2 class="text-xl font-semibold mb-4">Your Rating History</h2>
+        <table class="min-w-full divide-y divide-gray-200">
+            <thead>
+                <tr class="bg-gray-100">
+                    <th class="px-4 py-2 text-left">Delivery User</th>
+                    <th class="px-4 py-2 text-left">Rating</th>
+                    <th class="px-4 py-2 text-left">Comment</th>
+                    <th class="px-4 py-2 text-left">Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for rating in user_ratings %}
+                <tr class="hover:bg-gray-50">
+                    <td class="px-4 py-2">{{ rating.delivery_user.username }}</td>
+                    <td class="px-4 py-2">{{ rating.rating }}</td>
+                    <td class="px-4 py-2">{{ rating.comment }}</td>
+                    <td class="px-4 py-2">{{ rating.date_created|date:"Y-m-d H:i" }}</td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="4" class="px-4 py-2 text-center">No ratings yet.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

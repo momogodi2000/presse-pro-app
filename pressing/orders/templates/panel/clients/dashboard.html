@@ -1,0 +1,143 @@
+{% extends 'panel/base/clients_panel.html' %}
+{% load static %}
+{% block content %}
+<header class="bg-white shadow-md py-4 px-6 flex justify-between items-center">
+    <button class="text-gray-700 text-xl focus:outline-none hover:text-gray-900 transition">
+        <i class="fas fa-bars"></i>
+    </button>
+    <div class="flex items-center space-x-4">
+        <span class="text-lg font-semibold text-gray-700">Hello, {{ user.username }}!</span>
+        <a href="{% url 'logout' %}" class="text-red-500 font-medium hover:text-red-700 transition">Logout</a>
+    </div>
+</header>
+
+<main class="container mx-auto mt-10">
+    <!-- Welcome Section -->
+    <section class="text-center mb-12">
+        <h1 class="text-4xl font-extrabold text-gray-900 animate__animated animate__fadeInRight">Welcome, {{ user.username }}!</h1>
+        <p class="text-lg text-gray-600 mt-4 animate__animated animate__fadeInRight">Explore top-quality pressing services in Cameroon and manage your bookings with ease.</p>
+    </section>
+
+    <!-- Search Section -->
+    <section class="my-10">
+        <div class="flex justify-center">
+            <div class="w-full max-w-xl">
+                <div class="relative flex items-center">
+                    <input type="text" class="w-full py-3 px-4 rounded-l-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Search for pressing services near you...">
+                    <button class="bg-blue-500 text-white px-6 py-3 rounded-r-md hover:bg-blue-600 transition">
+                        <i class="fas fa-search"></i> Search
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Publicity Banner -->
+    <section class="my-10">
+        <div class="relative bg-cover bg-center h-64 rounded-lg shadow-lg" style="background-image: url('{% static 'image/shoes.jpeg' %}')">
+            <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent rounded-lg"></div>
+            <div class="absolute bottom-5 left-5 text-white">
+                <h2 class="text-2xl font-bold">Get your clothes fresh and crisp at unbeatable prices in Yaoundé!</h2>
+                <p class="text-lg mt-2">Enjoy premium pressing services from verified professionals across Cameroon.</p>
+                <a href="#" class="mt-4 inline-block bg-blue-500 text-white px-6 py-3 rounded-lg hover:bg-blue-600 transition">Book Now</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Services Section -->
+    <section class="my-10">
+        <h2 class="text-3xl font-bold text-center text-gray-900 mb-10">Featured Pressing Services</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {% for service in services %}
+            <div class="bg-white shadow-lg rounded-lg overflow-hidden transition-transform transform hover:scale-105">
+                <img src="{{ service.image }}" alt="{{ service.title }}" class="h-48 w-full object-cover">
+                <div class="p-6">
+                    <h5 class="text-xl font-bold text-gray-800">{{ service.title }}</h5>
+                    <p class="text-gray-600 mt-2">{{ service.description }}</p>
+                    <a href="#" class="block mt-4 text-blue-500 font-medium hover:underline">Learn More</a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+
+    <!-- Why Choose Us Section -->
+    <section class="my-16 bg-gray-50 py-10">
+        <h2 class="text-3xl font-bold text-center text-gray-900 mb-12">Why Choose PressPro?</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+            <div class="flex flex-col items-center">
+                <div class="text-blue-500 text-4xl mb-4">
+                    <i class="fas fa-clock"></i>
+                </div>
+                <h5 class="text-lg font-bold">Fast Service</h5>
+                <p class="mt-2 text-gray-600">Quick and efficient turnaround times, ensuring your clothes are pressed and ready in record time.</p>
+            </div>
+            <div class="flex flex-col items-center">
+                <div class="text-blue-500 text-4xl mb-4">
+                    <i class="fas fa-thumbs-up"></i>
+                </div>
+                <h5 class="text-lg font-bold">Quality Assurance</h5>
+                <p class="mt-2 text-gray-600">All services are handled by trained professionals, guaranteeing impeccable results.</p>
+            </div>
+            <div class="flex flex-col items-center">
+                <div class="text-blue-500 text-4xl mb-4">
+                    <i class="fas fa-map-marker-alt"></i>
+                </div>
+                <h5 class="text-lg font-bold">Convenient Locations</h5>
+                <p class="mt-2 text-gray-600">With numerous pressing services across Cameroon, you’ll always find one near you.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- More Details Section -->
+    <section class="my-16">
+        <h2 class="text-3xl font-bold text-center text-gray-900 mb-12">More About Our Services</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div class="bg-white shadow-lg rounded-lg overflow-hidden">
+                <img src="{% static 'image/pickup_service.jpeg' %}" alt="Fabric Care" class="h-48 w-full object-cover">
+                <div class="p-6">
+                    <h5 class="text-xl font-bold text-gray-800">Expert Fabric Care</h5>
+                    <p class="text-gray-600 mt-2">Our professionals handle all types of fabrics with the utmost care, ensuring long-lasting quality for your garments.</p>
+                </div>
+            </div>
+            <div class="bg-white shadow-lg rounded-lg overflow-hidden">
+                <img src="{% static 'image/pressing_express_delivery.jpeg' %}" alt="Express Delivery" class="h-48 w-full object-cover">
+                <div class="p-6">
+                    <h5 class="text-xl font-bold text-gray-800">Express Delivery Options</h5>
+                    <p class="text-gray-600 mt-2">Choose our express delivery service for urgent needs and enjoy the convenience of doorstep delivery.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Customer Testimonials Section -->
+    <section class="my-16 bg-gray-50 py-10">
+        <h2 class="text-3xl font-bold text-center text-gray-900 mb-12">What Our Customers Say</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="bg-white shadow-lg rounded-lg p-6">
+                <p class="text-gray-700">"PressPro has transformed the way I manage my laundry. Fast and reliable service!"</p>
+                <footer class="mt-4 text-sm text-gray-500">— Alice N.</footer>
+            </div>
+            <div class="bg-white shadow-lg rounded-lg p-6">
+                <p class="text-gray-700">"I love the convenience of booking services from my phone. Highly recommend!"</p>
+                <footer class="mt-4 text-sm text-gray-500">— Jean M.</footer>
+            </div>
+            <div class="bg-white shadow-lg rounded-lg p-6">
+                <p class="text-gray-700">"Excellent quality and very friendly staff. My go-to for all pressing services!"</p>
+                <footer class="mt-4 text-sm text-gray-500">— Marie T.</footer>
+            </div>
+        </div>
+    </section>
+</main>
+
+<!-- Footer -->
+<footer class="bg-gray-900 text-white py-6 text-center">
+    <p class="mb-4">&copy; 2024 PressPro. All rights reserved.</p>
+    <p>Contact Us: <a href="mailto:support@presspro.com" class="text-blue-400 hover:text-blue-500">support@presspro.com</a></p>
+    <div class="mt-4 space-x-4">
+        <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-facebook-f"></i></a>
+        <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-twitter"></i></a>
+        <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-instagram"></i></a>
+    </div>
+</footer>
+{% endblock %}
